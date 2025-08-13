@@ -6,7 +6,20 @@ This repository is a boiler palte for a Express web Application.
 
 It is using ES Modules rather than commonJS, and has a directory structure that seperates our responsiblities and concerns. 
 
-20080235
-22084048
-22151706
-17975432
+Group Detail: 
+
+Name: Chansethea Sunly
+ID: 20080235
+Email: 20080235@student.westernsydney.edu.au
+
+Name: Vouching Cheav
+ID: 22084048
+Email: 22084048@student.westernsydney.edu.au
+
+Name: Krishal Dhungana
+ID: 22151706
+Email:22151706@student.westernsydney.edu.au
+
+Name: Brendan Dickie
+ID: 17975432
+Email:17975432@student.westernsydney.edu.au
