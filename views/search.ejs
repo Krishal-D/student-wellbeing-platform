@@ -2,7 +2,9 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
     <header>
@@ -15,9 +17,12 @@
         <li><a href="/profile">Profile</a></li>
       </ul>
     </header>
-    <main>
-      <h2>Welcome to the Home Page</h2>
-      <p>This app is built with Express and EJS. 🎉</p>
+    <main class="container">
+      <h2>Searching</h2>
+      <form action="/search" method="GET">
+        <input type="text" name="query" placeholder="Search..." />
+        <button type="submit">Search</button>
+      </form>
     </main>
     <footer>
       <p>&copy; <%= new Date().getFullYear() %> Group 2</p>
