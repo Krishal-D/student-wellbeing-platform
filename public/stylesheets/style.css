@@ -6,3 +6,27 @@ body {
 a {
   color: #00B7FF;
 }
+
+h1 {
+  background: #ff0202;
+  color: white;
+  text-align: center;
+  margin: 10px 0;
+  font-weight: normal;
+}
+
+/* Make a list display horizontally */
+.nav-links {
+  display: flex;          /* put items in a row */
+  gap: 100px;              /* space between items */
+  list-style: none;       /* remove bullets */
+  margin: 10px;              /* remove default ul margin */
+  padding: 10px;             /* remove default ul padding */
+  align-items: center;    /* vertically center items */
+  /* optional */
+  flex-wrap: wrap;        /* let items wrap on small screens */
+}
+
+.nav-links a {
+  text-decoration: none;  /* optional: remove link underline */
+}
