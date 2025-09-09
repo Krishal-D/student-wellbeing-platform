@@ -21,22 +21,22 @@
       <h2>Mood Tracking</h2>
       <form action="/mood" method="GET">
         <p>Daily Mood Check-in</p>
+        <p>Select your mood (1 = Very Unhappy, 5 = Very Happy)</p>
         <div>
-            <input type="radio" id="1" name="mood_score" value="1" />
-            <label for="1">1</label><br>
-            <input type="radio" id="2" name="mood_score" value="2" />
-            <label for="2">2</label><br>
-            <input type="radio" id="3" name="mood_score" value="3" />
-            <label for="3">3</label><br>
-            <input type="radio" id="4" name="mood_score" value="4" />
-            <label for="4">4</label><br>
-            <input type="radio" id="5" name="mood_score" value="5" />
-            <label for="5">5</label><br>
+            <input type="radio" id="1" name="mood_score" value="1">
+            <label for="1">1</label>
+            <input type="radio" id="2" name="mood_score" value="2">
+            <label for="2">2</label>
+            <input type="radio" id="3" name="mood_score" value="3">
+            <label for="3">3</label>
+            <input type="radio" id="4" name="mood_score" value="4">
+            <label for="4">4</label>
+            <input type="radio" id="5" name="mood_score" value="5">
+            <label for="5">5</label> 
         </div>
-
         <label for="notes">Notes (optional): </label><br>
-        <input type="text" id="notes" name="notes" placeholder="How are you feeling today?" />
-
+        <input type="text" id="notes" name="notes" placeholder="How are you feeling today?"><br>
+        
         <button type="submit">Submit</button>
       </form>
     </main>
