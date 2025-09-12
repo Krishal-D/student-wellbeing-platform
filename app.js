@@ -3,7 +3,11 @@ import debug from 'debug';
 import * as server from './config/server.js';
 import { homeRouter } from './routes/home.js';
 import { searchRouter } from './routes/search.js';
+<<<<<<< HEAD
 import { moodRouter } from './routes/mood.js';
+=======
+import { registerRouter } from './routes/register.js';
+>>>>>>> 8d0765e (Added GET method /register route controller and route integration)
 
 // Setup debug module to spit out all messages
 // Do `npn start` to see the debug messages
@@ -19,6 +23,9 @@ server.setup(app)
 app.use('/', homeRouter);
 app.use('/', searchRouter);
 app.use('/', moodRouter)
+
+// Register page
+app.use('/', registerRouter);
 
 // Not encouraged, but this is a simple example of how to register a route without a router.
 app.get('/test', (req, res) => {
