@@ -1,4 +1,4 @@
 import express from 'express';
-import * as search from '../controllers/alertDashboard.js';
+import * as alertDashboard from '../controllers/alertDashboard.js';
 export const alertDashboardRouter = express.Router();
-alertDashboardRouter.get('/alertDashboard', search.show);
+alertDashboardRouter.get('/alertDashboard', alertDashboard.show);

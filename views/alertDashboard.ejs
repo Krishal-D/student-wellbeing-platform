@@ -2,27 +2,109 @@
 <html>
   <head>
     <title><%= title %></title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+      div.alertDivContainer {
+        border: 1px solid #000000; 
+        margin-top: 5px;
+        margin-bottom: 20px;
+        margin-left: 5px;
+        margin-right: 50px;
+        padding-right: 5px;
+
+        max-height: 300px;
+        overflow: auto; /* For scrollbar if many elements in list */
+
+      }
+
+      ul.alertList {
+        list-style-type: none;
+      }
+
+      li.alertElement {
+        border: 1px solid #000000;
+        
+      }
+
+      li.alertElement:hover {
+        background-color: rgb(255, 230, 230);
+      } 
+
+      ul.alertDetails {
+        list-style-type: none;
+        padding-left: 5px;
+      }
+
+      
+      
+
+    </style>
   </head>
   <body>
-    <header>
-      <h1><%= title %></h1>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/mood">Mood Track</a></li> 
-        <li><a href="/search">Search</a></li>
-        <li><a href="/social">Social Network</a></li>
-        <li><a href="/profile">Profile</a></li>
-      </ul>
-    </header>
-    <main class="container">
-      <h2>Alert Dashboard</h2>
-      
+    
+    <!-- Header HTML is in a separate file -->
+    <%- include("partials/header") %>
+
+    <main>
+      <h2>Welcome to the Alert Dashboard</h2>
+
+      <h3>List of Alerts:</h3>
+      <div class="alertDivContainer">
+
+        <ul class = "alertList">
+
+          <li class="alertElement">
+            <ul class="alertDetails">
+              <li><p><b>Name:</b> (firstname surname)</p></li>
+              <li><p><b>Student Email:</b> (student email)</p></li>
+              <li><p><b>Date:</b> (date/time triggered)</p></li>
+              <li><p><b>More Info:</b> (alert information)</p></li>
+            </ul>
+          </li>
+
+          <li class="alertElement">
+            <ul class="alertDetails">
+              <li><p><b>Name:</b> (firstname surname)</p></li>
+              <li><p><b>Student Email:</b> (student email)</p></li>
+              <li><p><b>Date:</b> (date/time triggered)</p></li>
+              <li><p><b>More Info:</b> (alert information)</p></li>
+            </ul>
+          </li>
+
+          <li class="alertElement">
+            <ul class="alertDetails">
+              <li><p><b>Name:</b> (firstname surname)</p></li>
+              <li><p><b>Student Email:</b> (student email)</p></li>
+              <li><p><b>Date:</b> (date/time triggered)</p></li>
+              <li><p><b>More Info:</b> (alert information)</p></li>
+            </ul>
+          </li>
+
+          <li class="alertElement">
+            <ul class="alertDetails">
+              <li><p><b>Name:</b> (firstname surname)</p></li>
+              <li><p><b>Student Email:</b> (student email)</p></li>
+              <li><p><b>Date:</b> (date/time triggered)</p></li>
+              <li><p><b>More Info:</b> (alert information)</p></li>
+            </ul>
+          </li>
+
+          <li class="alertElement">
+            <ul class="alertDetails">
+              <li><p><b>Name:</b> (firstname surname)</p></li>
+              <li><p><b>Student Email:</b> (student email)</p></li>
+              <li><p><b>Date:</b> (date/time triggered)</p></li>
+              <li><p><b>More Info:</b> (alert information)</p></li>
+            </ul>
+          </li>
+          
+        </ul>
+      </div>
+
     </main>
-    <footer>
-      <p>&copy; <%= new Date().getFullYear() %> Group 2</p>
-    </footer>
+
+    <!-- Footer HTML is in a separate file -->
+    <%- include("partials/footer") %>
+
   </body>
 </html>
