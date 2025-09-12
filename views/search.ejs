@@ -7,16 +7,10 @@
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
-    <header>
-      <h1><%= title %></h1>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/mood">Mood Track</a></li> 
-        <li><a href="/search">Search</a></li>
-        <li><a href="/social">Social Network</a></li>
-        <li><a href="/profile">Profile</a></li>
-      </ul>
-    </header>
+    
+    <!-- Header HTML is in a separate file -->
+    <%- include("partials/header") %>
+
     <main class="container">
       <h2>Searching</h2>
       <form action="/search" method="GET">
@@ -24,8 +18,9 @@
         <button type="submit">Search</button>
       </form>
     </main>
-    <footer>
-      <p>&copy; <%= new Date().getFullYear() %> Group 2</p>
-    </footer>
+
+    <!-- Footer HTML is in a separate file -->
+    <%- include("partials/footer") %>
+
   </body>
 </html>
