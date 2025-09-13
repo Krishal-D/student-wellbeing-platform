@@ -12,13 +12,13 @@
     <%- include("partials/header") %>
 
     <main class="container">
-      <h2>Search</h2>
+      <h2>Searching</h2>
       <form action="/search" method="GET">
         <input type="text" name="query" placeholder="Search..." />
         <button type="submit">Search</button>
       <br /><br />
       
-      <form id="category" action="/search" method="GET">
+      <form class="dropdown" id="category" action="/search" method="GET">
         <select id="category" name="category">
           <option value="">Category</option>
           <option value="fitness">Fitness</option>
@@ -26,7 +26,7 @@
           <option value="socialnetwork">Social Network</option>
         </select>
 
-      <form id="date" action="/search" method="GET">
+      <form class="dropdown" id="date" action="/search" method="GET">
         <select id="date" name="date">
           <option value="">Date</option>
           <option value="17-09-2025">17, September 2025</option>
@@ -34,7 +34,7 @@
           <option value="19-09-2025">19, September 2025</option>
         </select>
       
-      <form id="campus" action="/search" method="GET">
+      <form class="dropdown" id="campus" action="/search" method="GET">
         <select id="campus" name="campus">
           <option value="">Campus</option>
           <option value="bankstown">Bankstown</option>
@@ -45,7 +45,7 @@
           <option value="penrith">Penrith</option>
         </select>
       
-      <form id="time" action="/search" method="GET">
+      <form class="dropdown" id="time" action="/search" method="GET">
         <select id="time" name="time">
           <option value="">Time</option>
           <option value="09:00">09:00</option>
@@ -54,9 +54,63 @@
           <option value="12:00">12:00</option>
         </select>
       </form>
+      <br /><br />
+      <!-- Recommended for you -->
+    <section class="recommend-section" aria-labelledby="rec-title">
+      <h2 id="rec-title">Recommended for you</h2>
 
+      <div class="rec-grid">
+        <!-- Card 1 -->
+        <article class="rec-card">
+          <a class="rec-thumb" href="/events/mental-health-workshop" aria-label="Mental Health Workshop">
+            <img src="/images/istockphoto-1340965910-612x612.jpg" alt="Mental Health Workshop" />
+          </a>
+          <div class="rec-body">
+            <h3 class="rec-title">
+              <a href="/events/mental-health-workshop">Mental Health Workshop</a>
+            </h3>
+            <p class="rec-sub">Learn coping strategies</p>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="rec-card">
+          <a class="rec-thumb" href="/events/Learning-skills-seminar" aria-label="Learning Skills Seminar">
+            <img src="/images/Learning-Skill-icon-Graphics-26544562-1-1-580x387.jpg" alt="Learning Skills Seminar" />
+          </a>
+          <div class="rec-body">
+            <h3 class="rec-title">
+              <a href="/events/Learning-skills-seminar">Learning Skills Seminar</a>
+            </h3>
+            <p class="rec-sub">Improve your study habits</p>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="rec-card">
+          <a class="rec-thumb" href="/events/career-fair" aria-label="Career Fair"></a>
+          <div class="rec-body">
+            <h3 class="rec-title">
+              <a href="/events/career-fair">Career Fair</a>
+            </h3>
+            <p class="rec-sub">Explore job opportunities</p>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="rec-card">
+          <a class="rec-thumb" href="/events/social-mixer" aria-label="Social Mixer"></a>
+          <div class="rec-body">
+            <h3 class="rec-title">
+              <a href="/events/social-mixer">Social Mixer</a>
+            </h3>
+            <p class="rec-sub">Meet new people</p>
+          </div>
+        </article>
+      </div>
+    </section>
     </main>
-
+    
     <!-- Footer HTML is in a separate file -->
     <%- include("partials/footer") %>
 
