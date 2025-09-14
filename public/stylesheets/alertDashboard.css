@@ -1,0 +1,31 @@
+div.alertDivContainer {
+    border: 2px solid #444444; 
+    margin-top: 5px;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    margin-right: 50px;
+
+    padding-left: 0px;
+    padding-right: 40px;
+
+    max-height: 300px; /* Limits the height if there are many alerts */
+    overflow: auto;    /* For scrollbar if many alerts in list */
+}
+
+ul.alertList {
+    list-style-type: none; /* No bullet-points */
+}
+
+li.alertElement {
+    border: 1px solid #000000;
+}
+
+/* Change alert background colour on mouse-hover */
+li.alertElement:hover {
+    background-color: rgb(255, 230, 230);
+} 
+
+ul.alertDetails {
+    list-style-type: none;  /* No bullet-points */
+    padding-left: 5px;
+}
