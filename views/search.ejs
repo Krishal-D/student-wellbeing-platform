@@ -18,23 +18,29 @@
         <button type="submit">Search</button>
       <br /><br />
       
-      <form class="dropdown" id="category" action="/search" method="GET">
+      <div class="dropdowns-row">
+      <div class="dropdowns">
+      <form id="category" action="/search" method="GET">
         <select id="category" name="category">
           <option value="">Category</option>
           <option value="fitness">Fitness</option>
           <option value="counselling">Counselling</option>
           <option value="socialnetwork">Social Network</option>
         </select>
+      </div>
 
-      <form class="dropdown" id="date" action="/search" method="GET">
+      <div class="dropdowns">
+      <form id="date" action="/search" method="GET">
         <select id="date" name="date">
           <option value="">Date</option>
           <option value="17-09-2025">17, September 2025</option>
           <option value="18-09-2025">18, September 2025</option>
           <option value="19-09-2025">19, September 2025</option>
         </select>
-      
-      <form class="dropdown" id="campus" action="/search" method="GET">
+      </div>
+
+      <div class="dropdowns">
+      <form id="campus" action="/search" method="GET">
         <select id="campus" name="campus">
           <option value="">Campus</option>
           <option value="bankstown">Bankstown</option>
@@ -44,8 +50,10 @@
           <option value="parramattasouth">Parramatta South</option>
           <option value="penrith">Penrith</option>
         </select>
-      
-      <form class="dropdown" id="time" action="/search" method="GET">
+      </div>
+
+      <div class="dropdowns">
+      <form id="time" action="/search" method="GET">
         <select id="time" name="time">
           <option value="">Time</option>
           <option value="09:00">09:00</option>
@@ -53,6 +61,8 @@
           <option value="11:00">11:00</option>
           <option value="12:00">12:00</option>
         </select>
+      </div>
+      </div>
       </form>
       <br /><br />
       <!-- Recommended for you -->
@@ -88,7 +98,9 @@
 
         <!-- Card 3 -->
         <article class="rec-card">
-          <a class="rec-thumb" href="/events/career-fair" aria-label="Career Fair"></a>
+          <a class="rec-thumb" href="/events/career-fair" aria-label="Career Fair">
+            <img src="/images/360_F_1527954928_5UPs5ilDSieF6nu9LGfV8J36RtvDgGhF.jpg" alt="Career Fair" />
+          </a>
           <div class="rec-body">
             <h3 class="rec-title">
               <a href="/events/career-fair">Career Fair</a>
@@ -99,7 +111,9 @@
 
         <!-- Card 4 -->
         <article class="rec-card">
-          <a class="rec-thumb" href="/events/social-mixer" aria-label="Social Mixer"></a>
+          <a class="rec-thumb" href="/events/social-mixer" aria-label="Social Mixer">
+            <img src="/images/social-wellbeing-concept-icon.jpg" alt="Social Mixer" />
+          </a>
           <div class="rec-body">
             <h3 class="rec-title">
               <a href="/events/social-mixer">Social Mixer</a>

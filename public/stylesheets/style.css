@@ -91,3 +91,17 @@ h1 {
 }
 
 
+.dropdowns-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.dropdowns select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  
+}
+
