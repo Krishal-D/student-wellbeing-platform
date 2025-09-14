@@ -4,6 +4,7 @@ import * as server from './config/server.js';
 import { homeRouter } from './routes/home.js';
 import { searchRouter } from './routes/search.js';
 import { moodRouter } from './routes/mood.js';
+import { registerRouter } from './routes/register.js';
 
 // Setup debug module to spit out all messages
 // Do `npn start` to see the debug messages
@@ -19,6 +20,7 @@ server.setup(app)
 app.use('/', homeRouter);
 app.use('/', searchRouter);
 app.use('/', moodRouter)
+app.use('/', registerRouter);
 
 // Not encouraged, but this is a simple example of how to register a route without a router.
 app.get('/test', (req, res) => {
