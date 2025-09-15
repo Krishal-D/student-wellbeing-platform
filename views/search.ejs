@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/search.css" />
   </head>
   <body>
     
@@ -14,8 +15,10 @@
     <main class="container">
       <h2>Searching</h2>
       <form action="/search" method="GET">
-        <input type="text" name="query" placeholder="Search..." />
-        <button type="submit">Search</button>
+        <div class="search-bar">
+          <input type="text" name="query" placeholder="Search..." />
+          <button type="submit">Search</button>
+        </div>
       <br /><br />
       
       <div class="dropdowns-row">
