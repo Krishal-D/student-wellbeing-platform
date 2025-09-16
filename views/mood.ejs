@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+
+    <!-- Header HTML is in a separate file -->
+    <%- include("partials/header") %>
+
+    <main class="container">
+      <h2>Mood Tracking</h2>
+      <form action="/mood" method="GET">
+        <fieldset>
+        <legend>Daily Mood Check-in</legend>
+        <div>
+          <p>Select your mood (1 = Very Unhappy, 5 = Very Happy)</p>
+          <input type="radio" id="1" name="mood_score" value="1" required>
+          <label for="1">1</label>
+          <input type="radio" id="2" name="mood_score" value="2" >
+          <label for="2">2</label>
+          <input type="radio" id="3" name="mood_score" value="3">
+          <label for="3">3</label>
+          <input type="radio" id="4" name="mood_score" value="4">
+          <label for="4">4</label>
+          <input type="radio" id="5" name="mood_score" value="5">
+          <label for="5">5</label> 
+        </div>
+        <label for="notes">Notes (optional): </label><br>
+        <textarea id="notes" name="notes" rows="5" cols="85" placeholder="How are you feeling today?"></textarea><br>
+        <button type="submit">Submit</button>
+        </fieldset>
+      </form>
+    </main>
+
+    <!-- Footer HTML is in a separate file -->
+    <%- include("partials/footer") %>
+
+  </body>
+</html>
