@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/moodtrack.css" />
   </head>
   <body>
 
@@ -16,8 +17,9 @@
       <form action="/mood" method="POST">
         <fieldset>
         <legend>Daily Mood Check-in</legend>
-        <div>
-          <p>Select your mood (1 = Very Unhappy, 5 = Very Happy)</p>
+        <p>Select your mood (1 = Very Unhappy, 5 = Very Happy)</p>
+
+        <div class="mood-scale">
           <input type="radio" id="1" name="mood_score" value="1" required>
           <label for="1">1</label>
           <input type="radio" id="2" name="mood_score" value="2" >
@@ -29,8 +31,10 @@
           <input type="radio" id="5" name="mood_score" value="5">
           <label for="5">5</label> 
         </div>
+
         <label for="notes">Notes (optional): </label><br>
         <textarea id="notes" name="notes" rows="5" cols="85" placeholder="How are you feeling today?"></textarea><br>
+        
         <button type="submit">Submit</button>
         </fieldset>
       </form>
