@@ -1,15 +1,17 @@
 form {
-    border-radius: 8px;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    max-width: 750px;
     margin: 20px auto;
-    max-width: 600px;
+    padding: 20px;
+    border-radius: 8px;
     background: #fff;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 legend{
     font-weight: bold;
-    padding:0.9px;
+    padding: 1px;
 }
 
 .mood-scale {
@@ -29,24 +31,22 @@ legend{
     align-items: center;
     width: 60px;
     height: 60px;
-    in-height: 60px;
+    margin: 10px;
+    font-size: 20px;
     border: 2px solid #cc0101;
     border-radius: 50%;
-    text-align: center;
-    margin: 10px;
     cursor: pointer;
-    font-size: 20px;
     transition: all 0.2s ease-in-out;
 }
 
 .mood-scale input[type="radio"]:checked+label {
     background: #cc0101;
     color: #fff;
-    border-color: #cc0101;
+    border: none;
 }
 
 textarea {
-    width: 96%;
+    width: 97%;
     margin-top: 10px;
     padding: 10px;
     border-radius: 5px;
@@ -55,18 +55,19 @@ textarea {
 }
 
 button {
-    background: #cc0101;
-    color: #fff;
-    border-color:  #cc0101;
+    float: right;
+    margin-top: 15px;
     padding: 12px 24px;
-    border-radius: 4px;
     font-size: 16px;
     font-weight: bold;
-    margin-top: 15px;
+    border: none;
+    border-radius: 4px;
+    background: #cc0101;
+    color: #fff;
     cursor: pointer;
     transition: background 0.2s ease-in-out;
 }
 
 button:hover {
-    background: #cc0101;
+    background: #a30000;
 }
