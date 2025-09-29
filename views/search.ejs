@@ -59,12 +59,76 @@
           <option value="parramattacity">Parramatta City</option>
           <option value="parramattasouth">Parramatta South</option>
           <option value="penrith">Penrith</option>
+          <option value="online">Online</option>
         </select>
       </div>
       </div>
     </form>
      
-      
+    <!-- Search Results Section -->
+    <% if (typeof results !== 'undefined' && results.hasResults) { %>
+      <section class="search-results">
+        <h3>Search Results</h3>
+        
+        <!-- Event Results -->
+        <% if (results.events && results.events.length > 0) { %>
+          <div class="results-section">
+            <h4>Events (<%= results.events.length %>)</h4>
+            <div class="rec-grid">
+              <% results.events.forEach(function(event) { %>
+                <article class="rec-card">
+                  <a class="rec-thumb" href="/events/<%= event.id %>" aria-label="<%= event.title %>">
+                    <img src="<%= event.image %>" alt="<%= event.title %>" />
+                  </a>
+                  <div class="rec-body">
+                    <h3 class="rec-title">
+                      <a href="/events/<%= event.id %>"><%= event.title %></a>
+                    </h3>
+                    <p class="rec-sub"><%= event.subtitle %></p>
+                    <div class="event-meta">
+                      <span class="event-date"><%= new Date(event.date).toLocaleDateString('en-AU') %></span>
+                      <span class="event-time"><%= event.time %></span>
+                      <span class="event-campus"><%= event.campus.charAt(0).toUpperCase() + event.campus.slice(1).replace(/([A-Z])/g, ' $1') %></span>
+                    </div>
+                  </div>
+                </article>
+              <% }); %>
+            </div>
+          </div>
+        <% } %>
+        
+        <!-- Item Results -->
+        <% if (results.items && results.items.length > 0) { %>
+          <div class="results-section">
+            <h4>Resources (<%= results.items.length %>)</h4>
+            <div class="items-list">
+              <% results.items.forEach(function(item) { %>
+                <div class="item-card">
+                  <h4><%= item.title %></h4>
+                  <p><%= item.summary %></p>
+                  <div class="item-meta">
+                    <span class="item-category"><%= item.category %></span>
+                    <span class="item-type"><%= item.type %></span>
+                    <% if (item.date) { %>
+                      <span class="item-date"><%= item.date %></span>
+                    <% } %>
+                    <span class="item-location"><%= item.location %></span>
+                  </div>
+                  <% if (item.bookUrl) { %>
+                    <a href="<%= item.bookUrl %>" class="btn btn-primary">Book</a>
+                  <% } %>
+                </div>
+              <% }); %>
+            </div>
+          </div>
+        <% } %>
+      </section>
+    <% } else if (typeof results !== 'undefined' && !results.hasResults && (query || category || date || time || campus || type)) { %>
+      <section class="search-results">
+        <h3>No Results Found</h3>
+        <p>Try adjusting your search criteria or browse our <a href="/">recommended events</a>.</p>
+      </section>
+    <% } %>
     
     </main>
     

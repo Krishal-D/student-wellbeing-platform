@@ -4,6 +4,7 @@ import * as server from './config/server.js';
 
 import { homeRouter } from './routes/home.js';
 import { searchRouter } from './routes/search.js';
+import { eventRouter } from './routes/event.js';
 import { moodRouter } from './routes/mood.js';
 import { registerRouter } from './routes/register.js';
 import { alertDashboardRouter } from './routes/alertDashboard.js';
@@ -22,6 +23,7 @@ server.setup(app)
 // Register routers here
 app.use('/', homeRouter);
 app.use('/', searchRouter);
+app.use('/', eventRouter);
 app.use('/', moodRouter)
 app.use('/', registerRouter);
 app.use('/', alertDashboardRouter);
