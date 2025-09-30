@@ -14,18 +14,18 @@ legend{
     padding: 1px;
 }
 
-.mood-scale {
+.mood_score {
     display: flex;
     justify-content: center;
     gap: 20px;
     margin: 20px 0;
 }
 
-.mood-scale input[type="radio"] {
+.mood_score input[type="radio"] {
     display: none;
 }
 
-.mood-scale label {
+.mood_score label {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,7 +39,7 @@ legend{
     transition: all 0.2s ease-in-out;
 }
 
-.mood-scale input[type="radio"]:checked+label {
+.mood_score input[type="radio"]:checked+label {
     background: #cc0101;
     color: #fff;
     border: none;

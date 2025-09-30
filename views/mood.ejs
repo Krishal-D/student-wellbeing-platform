@@ -19,7 +19,7 @@
         <legend>Daily Mood Check-in</legend>
         <p>Select your mood (1 = Very Unhappy, 5 = Very Happy)</p>
 
-        <div class="mood-scale">
+        <div class="mood_score">
           <input type="radio" id="1" name="mood_score" value="1" required>
           <label for="1">1</label>
           <input type="radio" id="2" name="mood_score" value="2" >
@@ -38,6 +38,9 @@
         <button type="submit">Submit</button>
         </fieldset>
       </form>
+      <% if (typeof feedback !== 'undefined') { %>
+        <p><strong><%= feedback %></strong></p>
+      <% } %>
     </main>
 
     <!-- Footer HTML is in a separate file -->
