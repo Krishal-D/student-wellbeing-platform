@@ -1,25 +1,32 @@
+/**
+ * Event controller - Now super simple with unified data!
+ */
 
+import { ALL_EVENTS } from '../data/items.js';
 
-import { EVENTS } from '../data/items.js';
-
-
+/**
+ * Get all events (now everything is an event!)
+ */
 export function getAllEvents() {
-  return EVENTS;
+  return ALL_EVENTS;
 }
 
-
+/**
+ * Get event by ID (works for everything now!)
+ */
 export function getEventById(id) {
-  return EVENTS.find(event => event.id === id);
+  return ALL_EVENTS.find(event => event.id === id);
 }
 
-
-
+/**
+ * Search events (now searches everything!)
+ */
 export function searchEvents(filters) {
   const { query = "", category = "", date = "", time = "", campus = "", type = "" } = filters;
   
   const q = query.trim().toLowerCase();
   
-  return EVENTS.filter(event => {
+  return ALL_EVENTS.filter(event => {
     const matchesQuery = !q || 
       event.title.toLowerCase().includes(q) ||
       event.subtitle.toLowerCase().includes(q) ||
@@ -28,14 +35,16 @@ export function searchEvents(filters) {
     const matchesCategory = !category || event.category === category;
     const matchesDate = !date || event.date === date;
     const matchesTime = !time || event.time === time;
-    const matchesCampus = !campus || event.campus === campus;
+    const matchesCampus = !campus || event.location.toLowerCase().includes(campus.toLowerCase());
     const matchesType = !type || event.type === type;
     
     return matchesQuery && matchesCategory && matchesDate && matchesTime && matchesCampus && matchesType;
   });
 }
 
-
+/**
+ * Render individual event page (handles everything now!)
+ */
 export async function showEvent(req, res, next) {
   const { eventId } = req.params;
   const event = getEventById(eventId);
@@ -53,7 +62,29 @@ export async function showEvent(req, res, next) {
   });
 }
 
+/**
+ * Same function but with different parameter name for backward compatibility
+ */
+export async function showItem(req, res, next) {
+  const { itemId } = req.params;
+  const event = getEventById(itemId);  // Same function, different route!
+  
+  if (!event) {
+    return res.status(404).render('error', { 
+      title: 'Event Not Found',
+      message: 'The requested event could not be found.' 
+    });
+  }
+  
+  res.render('event', { 
+    title: event.title,
+    event: event
+  });
+}
 
+/**
+ * Render events listing page
+ */
 export async function listEvents(req, res, next) {
   const events = getAllEvents();
   res.render('events', { 
@@ -61,4 +92,3 @@ export async function listEvents(req, res, next) {
     events: events
   });
 }
-

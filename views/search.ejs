@@ -37,16 +37,23 @@
           <option value="17-09-2025">17, September 2025</option>
           <option value="18-09-2025">18, September 2025</option>
           <option value="19-09-2025">19, September 2025</option>
+          <option value="20-09-2025">20, September 2025</option>
+          <option value="01-10-2025">01, October 2025</option>
+          <option value="05-10-2025">05, October 2025</option>
+          <option value="09-10-2025">09, October 2025</option>
         </select>
       </div>
 
       <div class="dropdowns">
         <select id="time" name="time">
           <option value="">Time</option>
+          <option value="07:00">07:00</option>
           <option value="09:00">09:00</option>
           <option value="10:00">10:00</option>
           <option value="11:00">11:00</option>
           <option value="12:00">12:00</option>
+          <option value="13:00">13:00</option>
+          <option value="14:00">14:00</option>
         </select>
       </div>
 
@@ -70,42 +77,15 @@
       <section class="search-results">
         <h3>Search Results</h3>
         
-        <!-- Event Results -->
-        <% if (results.events && results.events.length > 0) { %>
-          <div class="results-section">
-            <h4>Events (<%= results.events.length %>)</h4>
-            <div class="rec-grid">
-              <% results.events.forEach(function(event) { %>
-                <article class="rec-card">
-                  <a class="rec-thumb" href="/events/<%= event.id %>" aria-label="<%= event.title %>">
-                    <img src="<%= event.image %>" alt="<%= event.title %>" />
-                  </a>
-                  <div class="rec-body">
-                    <h3 class="rec-title">
-                      <a href="/events/<%= event.id %>"><%= event.title %></a>
-                    </h3>
-                    <p class="rec-sub"><%= event.subtitle %></p>
-                    <div class="event-meta">
-                      <span class="event-date"><%= new Date(event.date).toLocaleDateString('en-AU') %></span>
-                      <span class="event-time"><%= event.time %></span>
-                      <span class="event-campus"><%= event.campus.charAt(0).toUpperCase() + event.campus.slice(1).replace(/([A-Z])/g, ' $1') %></span>
-                    </div>
-                  </div>
-                </article>
-              <% }); %>
-            </div>
-          </div>
-        <% } %>
-        
-        <!-- Item Results -->
+        <!-- All Results as Resources -->
         <% if (results.items && results.items.length > 0) { %>
           <div class="results-section">
             <h4>Resources (<%= results.items.length %>)</h4>
             <div class="items-list">
               <% results.items.forEach(function(item) { %>
                 <div class="item-card">
-                  <h4><%= item.title %></h4>
-                  <p><%= item.summary %></p>
+                  <h4><a href="/events/<%= item.id %>" style="color: #2c3e50; text-decoration: none;"><%= item.title %></a></h4>
+                  <p><%= item.subtitle %></p>
                   <div class="item-meta">
                     <span class="item-category"><%= item.category %></span>
                     <span class="item-type"><%= item.type %></span>
@@ -114,9 +94,12 @@
                     <% } %>
                     <span class="item-location"><%= item.location %></span>
                   </div>
-                  <% if (item.bookUrl) { %>
-                    <a href="<%= item.bookUrl %>" class="btn btn-primary">Book</a>
-                  <% } %>
+                  <div style="margin-top: 10px;">
+                    <a href="/events/<%= item.id %>" class="btn btn-primary" style="margin-right: 10px;">View Details</a>
+                    <% if (item.bookUrl) { %>
+                      <a href="<%= item.bookUrl %>" class="btn btn-secondary">Book</a>
+                    <% } %>
+                  </div>
                 </div>
               <% }); %>
             </div>

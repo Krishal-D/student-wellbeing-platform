@@ -6,22 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
     <link rel="stylesheet" href="/stylesheets/search.css" />
+  </head>
+  <body>
     
-    <%- include("partials/header") %>
 
     <main class="event-container">
       <a href="/" class="back-link">← Back to Home</a>
       
       <div class="event-header">
-        <img src="<%= event.image %>" alt="<%= event.title %>" class="event-image" /> 
-        <!--<h1 class="event-title"><%= event.title %></h1>-->
+       
+        <h1 class="event-title"><%= event.title %></h1>
         <p class="event-subtitle"><%= event.subtitle %></p>
       </div>
 
       <div class="event-details">
         <div class="detail-card">
           <div class="detail-label">Date</div>
-          <div class="detail-value"><%= new Date(event.date).toLocaleDateString('en-AU', { 
+          <div class="detail-value"><%
+            // Parse DD-MM-YYYY format
+            const dateParts = event.date.split('-');
+            const dateObj = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
+            %><%= dateObj.toLocaleDateString('en-AU', { 
             weekday: 'long', 
             year: 'numeric', 
             month: 'long', 
@@ -40,8 +45,8 @@
         </div>
         
         <div class="detail-card">
-          <div class="detail-label">Campus</div>
-          <div class="detail-value"><%= event.campus.charAt(0).toUpperCase() + event.campus.slice(1).replace(/([A-Z])/g, ' $1') %></div>
+          <div class="detail-label">Location</div>
+          <div class="detail-value"><%= event.location.charAt(0).toUpperCase() + event.location.slice(1).replace(/([A-Z])/g, ' $1') %></div>
         </div>
         
         <div class="detail-card">
@@ -56,7 +61,7 @@
       </div>
 
       <div class="event-description">
-        <h3>About This Event</h3>
+        <h3>About This <%= event.type.charAt(0).toUpperCase() + event.type.slice(1) %></h3>
         <p><%= event.description %></p>
       </div>
 
@@ -70,7 +75,7 @@
       </div>
 
       <div class="action-buttons">
-        <a href="<%= event.bookUrl %>" class="btn btn-primary">Book This Event</a>
+        <a href="<%= event.bookUrl %>" class="btn btn-primary">Book This <%= event.type.charAt(0).toUpperCase() + event.type.slice(1) %></a>
         <a href="/search" class="btn btn-secondary">Search More Events</a>
       </div>
     </main>
