@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="/stylesheets/moodFeedback.css" />
+</head>
+<body>
+  <%- include("partials/header") %>
+
+  <main class="container">
+    <h2>🙏 Thank You for Checking In!</h2>
+
+    <div class="message">
+        <p><strong> <%= message %> </strong></p>
+    </div>
+    
+    <div class="actions">
+        <a href="/search" class="btn">Support Resource</a>
+        <a href="/mood" class="btn">New Mood Entry</a>
+        <a href="/history" class="btn">View History</a>
+    </div>
+  </main>
+
+  <%- include("partials/footer") %>
+</body>
+</html>
