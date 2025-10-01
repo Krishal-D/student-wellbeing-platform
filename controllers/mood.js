@@ -22,19 +22,19 @@ export async function submit(req, res, next){
         let message ='';
         switch (parseInt(mood_score)) {
             case 1:
-                message = "It seems like you are feeling a bit off today. Reach out to someone close might bring some comfort.";
+                message = "😢 It seems like you are feeling a bit off today. Reach out to someone close might bring some comfort.";
                 break;
             case 2:
-                message = "It seems like you are feeling a little low today. Step back and spend time doing something that help lift up your mood.";
+                message = "🙁 It seems like you are feeling a little low today. Step back and spend time doing something that help lift up your mood.";
                 break;
             case 3:
-                message = "Feeling neutral today - hold onto that balance and move gently through your moments.";
+                message = "😐 Feeling neutral today - hold onto that balance and move gently through your moments.";
                 break;
             case 4:
-                message = "It is lovely to see you in such a good mood today. Keep holding onto that positive energy.";
+                message = "😀 It is lovely to see you in such a good mood today. Keep holding onto that positive energy.";
                 break;
             case 5:
-                message = "It is wonderful to see you in such high spirits today. Keep that joy flowing.";
+                message = "😄 It is wonderful to see you in such high spirits today. Keep that joy flowing.";
                 break;
         }
 
