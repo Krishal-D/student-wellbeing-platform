@@ -27,8 +27,14 @@ h1 {
   flex-wrap: wrap;        /* let items wrap on small screens */
 }
 
+
 .nav-links a {
   text-decoration: none;  /* optional: remove link underline */
 }
 
 
+
+/* Align Login button to right */
+.nav-login {
+  margin-left: auto;
+}
