@@ -1,22 +1,11 @@
-// Code copied from lecture
+import pg from "pg";
+import dotenv from "dotenv";
+dotenv.config();
 
-import postgres from 'postgres';
-
-const sql = postgres({
-    host: 'localhost',
-    port: 5432,
-    database: 'postgres',
-    username: 'postgres',
-    password: 'postgres'
+export const pool = new pg.Pool({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
-export default sql;
-
-// Let test the connection and setup basic table
-(async () => {
-    try {
-        let result = await sql`SELECT NOW()`;
-        console.log(`connection was successful ${result[0].now}`);
-    } catch (error) {
-        console.error(`Failed to connect to the DB ${error}`);
-    }
-})();
