@@ -27,14 +27,15 @@ h2 {
     color: #000000;
 }
 
-.action {
+.actions {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    margin-top: 15px;
     gap: 40px;
-    margin: top 15px;
 }
 
-.actions .btn {
+.actions .button {
     padding: 10px 20px;
     background: #cc0101;
     color: #fff;
@@ -43,6 +44,6 @@ h2 {
     transition: background 0.2s ease;
 }
 
-.action .btn:hover {
+.action .button:hover {
     background: #a30000;
 }
