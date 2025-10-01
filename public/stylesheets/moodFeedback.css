@@ -44,6 +44,6 @@ h2 {
     transition: background 0.2s ease;
 }
 
-.action .button:hover {
+.actions .button:hover {
     background: #a30000;
 }
