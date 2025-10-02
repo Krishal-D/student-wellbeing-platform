@@ -25,7 +25,15 @@
                     <th>Created at</th>
                 </tr>
             </thead>
+
             <tbody>
+              <% if (moods.length === 0) {%>
+                <tr>
+                  <td colspan="4" class="empty-state">
+                    📝No mood data available. <a href="/mood">Start your first check-in whenever you are ready.</a>
+                  </td>
+                </tr>
+              <%} else { %>
                 <%moods.forEach(mood => {%>
                 <tr>
                     <td>M<%= mood.id %></td>
@@ -34,7 +42,9 @@
                     <td><%= new Date (mood.created_at).toLocaleString() %></td>
                 </tr>
                 <% }) %>
+              <% } %>
             </tbody>
+
         </table>
         </div>
         

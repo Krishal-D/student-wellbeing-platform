@@ -26,6 +26,12 @@ table {
     font: 15px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    white-space: nowrap;
+}
+
 thead th{
     background-color: #cc0101;
     color: white;
