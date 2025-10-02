@@ -2,7 +2,7 @@ import {pool} from '../config/db.js';
 
 export async function show(req, res, next){
     try{
-        const user_id = 1;
+        const user_id = 1; // update later after the login is setup
         const result = await pool.query(
             'SELECT id, mood_score, notes, created_at FROM mood WHERE user_id = $1 ORDER BY created_at DESC',
             [user_id]
