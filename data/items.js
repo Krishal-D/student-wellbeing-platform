@@ -1,3 +1,4 @@
+// Mock data for events
 
 export const ALL_EVENTS = [
   // Fitness Events
@@ -7,7 +8,7 @@ export const ALL_EVENTS = [
     subtitle: "Gentle flow to start your day",
     category: "fitness",
     date: "18-09-2025",
-    time: "07:00",
+    time: "14:00",
     location: "Parramatta South",
     type: "event",
     description: "Start your day with a peaceful and energizing yoga session. Our morning yoga class focuses on gentle flows and breathing exercises that will help you feel centered and ready to tackle the day ahead.",
@@ -213,7 +214,3 @@ export const ALL_EVENTS = [
     bookUrl: "/book/social-mixer"
   }
 ];
-
-// For backward compatibility and simplicity - everything is the same now!
-export const ITEMS = ALL_EVENTS;
-export const EVENTS = ALL_EVENTS;

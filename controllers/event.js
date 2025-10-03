@@ -1,26 +1,17 @@
-/**
- * Event controller - Now super simple with unified data!
- */
-
+// Event controller
 import { ALL_EVENTS } from '../data/items.js';
 
-/**
- * Get all events (now everything is an event!)
- */
+// Get all events 
 export function getAllEvents() {
   return ALL_EVENTS;
 }
 
-/**
- * Get event by ID (works for everything now!)
- */
+// Get event by ID 
 export function getEventById(id) {
   return ALL_EVENTS.find(event => event.id === id);
 }
 
-/**
- * Search events (now searches everything!)
- */
+// Search events (searches title, subtitle, description, type, location)
 export function searchEvents(filters) {
   const { query = "", category = "", date = "", time = "", campus = "", type = "" } = filters;
   
@@ -44,9 +35,7 @@ export function searchEvents(filters) {
   });
 }
 
-/**
- * Render individual event page (handles everything now!)
- */
+// Render individual event page 
 export async function showEvent(req, res, next) {
   const { eventId } = req.params;
   const event = getEventById(eventId);
@@ -64,9 +53,7 @@ export async function showEvent(req, res, next) {
   });
 }
 
-/**
- * Render events listing page
- */
+// Render events listing page
 export async function listEvents(req, res, next) {
   const events = getAllEvents();
   res.render('events', { 
