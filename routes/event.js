@@ -9,4 +9,6 @@ eventRouter.get('/events/:eventId', eventController.showEvent);
 // Route for events listing page
 eventRouter.get('/events', eventController.listEvents);
 
-
+eventRouter.get('/events/:eventId/book', eventController.bookEvent);
+eventRouter.get('/events/:eventId/unbook', eventController.unbookEvent);
+eventRouter.get('/my-events', eventController.showMyEvents);

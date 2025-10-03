@@ -11,7 +11,7 @@
     
 
     <main class="event-container">
-      <a href="/" class="back-link">← Back to Home</a>
+      <a href="/search" class="back-link">← Back to Search </a>
       
       <div class="event-header">
         <h1 class="event-title"><%= event.title %></h1>
@@ -65,8 +65,8 @@
       </div>
 
       <div class="action-buttons">
-        <a href="<%= event.bookUrl %>" class="btn btn-primary">Book This <%= event.type.charAt(0).toUpperCase() + event.type.slice(1) %></a>
-        <a href="/search" class="btn btn-secondary">Search More Events</a>
+        <a href="/events/<%= event.id %>/book" class="btn btn-primary">Book now</a>
+        <a href="/my-events" class="btn btn-secondary">My Events</a>
       </div>
     </main>
 

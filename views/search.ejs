@@ -103,10 +103,8 @@
                     <span class="event-location"><%= event.location %></span>
                   </div>
                   <div style="margin-top: 10px;">
-                    <a href="/events/<%= event.id %>" class="btn btn-primary" style="margin-right: 10px;">View Details</a>
-                    <% if (event.bookUrl) { %>
-                      <a href="<%= event.bookUrl %>" class="btn btn-secondary">Book</a>
-                    <% } %>
+                    <a href="/events/<%= event.id %>" class="btn btn-secondary" style="margin-right: 8px;">View Details</a>
+                    <a href="/events/<%= event.id %>/book" class="btn btn-primary" style="margin-left: 8px;">Book now</a>
                   </div>
                 </div>
               <% }); %>

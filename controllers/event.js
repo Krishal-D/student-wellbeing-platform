@@ -1,6 +1,24 @@
 // Event controller
 import { ALL_EVENTS } from '../data/items.js';
 
+const BOOKED_BY_USER = new Map(); 
+// auth user id for later.
+const USER_ID = 'user-1';
+
+function getUserTickets(userId = USER_ID) {
+  if (!BOOKED_BY_USER.has(userId)) BOOKED_BY_USER.set(userId, new Set());
+  return BOOKED_BY_USER.get(userId);
+}
+
+// remove ticket then redirect to /my-events
+export function unbookEvent(req, res) {
+  const { eventId } = req.params;
+  const tickets = getUserTickets(); // DEMO_USER_ID for now
+  tickets.delete(eventId); // idempotent: OK if it wasn't there
+  return res.redirect('/my-events?removed=1');
+}
+
+
 // Get all events 
 export function getAllEvents() {
   return ALL_EVENTS;
@@ -59,5 +77,36 @@ export async function listEvents(req, res, next) {
   res.render('events', { 
     title: 'All Events',
     events: events
+  });
+}
+
+
+// GET /events/:eventId/book  → add to "tickets" and redirect to /my-events
+export function bookEvent(req, res) {
+  const { eventId } = req.params;
+  const event = getEventById(eventId);
+  if (!event) return res.redirect('/my-events'); // silent
+
+  const tickets = getUserTickets();
+  if (tickets.has(eventId)) {
+    return res.redirect('/my-events?already=1');
+  }
+  tickets.add(eventId);
+  return res.redirect('/my-events?joined=1');
+}
+
+// GET /my-events → list booked events
+export function showMyEvents(req, res) {
+  const tickets = Array.from(getUserTickets());
+  const all = getAllEvents();
+  const myEvents = all.filter(ev => tickets.includes(ev.id));
+
+  res.render('my-events', {
+    title: 'My Event Tickets',
+    events: myEvents,
+    
+    
+   already: req.query.already === '1'     
+    
   });
 }
