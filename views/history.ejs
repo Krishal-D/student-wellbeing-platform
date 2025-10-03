@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/history.css" />
+  </head>
+  <body>
+
+    <!-- Header HTML is in a separate file -->
+    <%- include("partials/header") %>
+
+    <main class="container">
+      <h2>Mood History</h2>
+
+        <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Mood ID</th>
+                    <th>Mood Score</th>
+                    <th>Notes</th>
+                    <th>Created at</th>
+                </tr>
+            </thead>
+
+            <tbody>
+              <% if (moods.length === 0) {%>
+                <tr>
+                  <td colspan="4" class="empty-state">
+                    📝No mood data available. <a href="/mood">Start your first check-in whenever you are ready.</a>
+                  </td>
+                </tr>
+              <%} else { %>
+                <%moods.forEach(mood => {%>
+                <tr>
+                    <td>M<%= mood.id %></td>
+                    <td><%= mood.mood_score %></td>
+                    <td><%= mood.notes %></td>
+                    <td><%= new Date (mood.created_at).toLocaleString() %></td>
+                </tr>
+                <% }) %>
+              <% } %>
+            </tbody>
+
+        </table>
+        </div>
+        
+    </main>
+
+    <!-- Footer HTML is in a separate file -->
+    <%- include("partials/footer") %>
+
+  </body>
+</html>
