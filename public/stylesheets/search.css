@@ -115,7 +115,46 @@
   color: #2c3e50;
 }
 
-/* Items list styles */
+/* Events list styles */
+.events-list {
+  display: grid;
+  gap: 15px;
+}
+
+.event-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.event-card h4 {
+  margin: 0 0 8px 0;
+  color: #2c3e50;
+}
+
+.event-card p {
+  margin: 0 0 10px 0;
+  color: #666;
+}
+
+.event-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.event-meta span {
+  background: #f8f9fa;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: #495057;
+}
+
+/* Backwards compatibility aliases */
 .items-list {
   display: grid;
   gap: 15px;

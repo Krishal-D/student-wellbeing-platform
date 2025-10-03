@@ -21,16 +21,7 @@
       <div class="event-details">
         <div class="detail-card">
           <div class="detail-label">Date</div>
-          <div class="detail-value"><%
-            // Parse DD-MM-YYYY format
-            const dateParts = event.date.split('-');
-            const dateObj = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
-            %><%= dateObj.toLocaleDateString('en-AU', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          }) %></div>
+          <div class="detail-value"><%= event.date %></div>
         </div>
         
         <div class="detail-card">

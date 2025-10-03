@@ -6,9 +6,9 @@ export async function show(req, res, next) {
   // Get all search results
   const allResults = searchEvents({ query, category, date, time, campus, type });
   
-  // Show everything as resources in the same format
+  // Show everything as events in the same format
   const results = {
-    items: allResults, // All results go into items (resources format)
+    events: allResults, // All results go into events
     hasResults: allResults.length > 0
   };
 

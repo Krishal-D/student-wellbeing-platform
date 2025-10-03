@@ -30,7 +30,9 @@ export function searchEvents(filters) {
     const matchesQuery = !q || 
       event.title.toLowerCase().includes(q) ||
       event.subtitle.toLowerCase().includes(q) ||
-      event.description.toLowerCase().includes(q);
+      event.description.toLowerCase().includes(q) ||
+      event.type.toLowerCase().includes(q) ||
+      event.location.toLowerCase().includes(q);
     
     const matchesCategory = !category || event.category === category;
     const matchesDate = !date || event.date === date;
@@ -48,26 +50,6 @@ export function searchEvents(filters) {
 export async function showEvent(req, res, next) {
   const { eventId } = req.params;
   const event = getEventById(eventId);
-  
-  if (!event) {
-    return res.status(404).render('error', { 
-      title: 'Event Not Found',
-      message: 'The requested event could not be found.' 
-    });
-  }
-  
-  res.render('event', { 
-    title: event.title,
-    event: event
-  });
-}
-
-/**
- * Same function but with different parameter name for backward compatibility
- */
-export async function showItem(req, res, next) {
-  const { itemId } = req.params;
-  const event = getEventById(itemId);  // Same function, different route!
   
   if (!event) {
     return res.status(404).render('error', { 

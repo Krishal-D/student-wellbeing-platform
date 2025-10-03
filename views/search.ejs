@@ -69,6 +69,15 @@
           <option value="online">Online</option>
         </select>
       </div>
+
+      <div class="dropdowns">
+        <select id="type" name="type">
+          <option value="">Type</option>
+          <option value="event">Event</option>
+          <option value="workshop">Workshop</option>
+          <option value="seminar">Seminar</option>
+        </select>
+      </div>
       </div>
     </form>
      
@@ -77,27 +86,27 @@
       <section class="search-results">
         <h3>Search Results</h3>
         
-        <!-- All Results as Resources -->
-        <% if (results.items && results.items.length > 0) { %>
+        <!-- All Results as Events -->
+        <% if (results.events && results.events.length > 0) { %>
           <div class="results-section">
-            <h4>Resources (<%= results.items.length %>)</h4>
-            <div class="items-list">
-              <% results.items.forEach(function(item) { %>
-                <div class="item-card">
-                  <h4><a href="/events/<%= item.id %>" style="color: #2c3e50; text-decoration: none;"><%= item.title %></a></h4>
-                  <p><%= item.subtitle %></p>
-                  <div class="item-meta">
-                    <span class="item-category"><%= item.category %></span>
-                    <span class="item-type"><%= item.type %></span>
-                    <% if (item.date) { %>
-                      <span class="item-date"><%= item.date %></span>
+            <h4>Events (<%= results.events.length %>)</h4>
+            <div class="events-list">
+              <% results.events.forEach(function(event) { %>
+                <div class="event-card">
+                  <h4><a href="/events/<%= event.id %>" style="color: #2c3e50; text-decoration: none;"><%= event.title %></a></h4>
+                  <p><%= event.subtitle %></p>
+                  <div class="event-meta">
+                    <span class="event-category"><%= event.category %></span>
+                    <span class="event-type"><%= event.type %></span>
+                    <% if (event.date) { %>
+                      <span class="event-date"><%= event.date %></span>
                     <% } %>
-                    <span class="item-location"><%= item.location %></span>
+                    <span class="event-location"><%= event.location %></span>
                   </div>
                   <div style="margin-top: 10px;">
-                    <a href="/events/<%= item.id %>" class="btn btn-primary" style="margin-right: 10px;">View Details</a>
-                    <% if (item.bookUrl) { %>
-                      <a href="<%= item.bookUrl %>" class="btn btn-secondary">Book</a>
+                    <a href="/events/<%= event.id %>" class="btn btn-primary" style="margin-right: 10px;">View Details</a>
+                    <% if (event.bookUrl) { %>
+                      <a href="<%= event.bookUrl %>" class="btn btn-secondary">Book</a>
                     <% } %>
                   </div>
                 </div>
