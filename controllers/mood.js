@@ -81,7 +81,6 @@ export async function alertCheck(req, res, user_id) {
         
     } catch (err) {
         console.error('Database error: ', err);
-        res.status(500).send('Server error');
     }
 }
 
@@ -97,7 +96,6 @@ export async function insertAlert(req, res, user_id) {
         
     } catch (err) {
         console.error('Database error: ', err);
-        res.status(500).send('Server error');
     }
 }
 
