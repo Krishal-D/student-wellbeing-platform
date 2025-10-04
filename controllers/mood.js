@@ -57,6 +57,7 @@ export async function submit(req, res, next){
     alertCheck(req, res, 1); 
 }
 
+// Check if an alert needs to be created
 export async function alertCheck(req, res, user_id) {
     try {
         // Get all moods entered by the user (user_id)
@@ -65,11 +66,6 @@ export async function alertCheck(req, res, user_id) {
             [user_id]
         );
         const moods = result.rows;
-
-        console.log("-------------------");
-        console.log(moods.length);
-        console.log("-------------------");
-
 
         // (Moods entered most recently are at the start of the array)
         // If the last 3 moods entered are 2 or below, insert an alert
@@ -89,6 +85,7 @@ export async function alertCheck(req, res, user_id) {
     }
 }
 
+// Insert an alert into the alert table for the given user_id
 export async function insertAlert(req, res, user_id) {
     try {
         await pool.query(
