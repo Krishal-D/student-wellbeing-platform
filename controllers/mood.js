@@ -66,9 +66,16 @@ export async function alertCheck(req, res, user_id) {
         );
         const moods = result.rows;
 
+        console.log("-------------------");
+        console.log(moods.length);
+        console.log("-------------------");
+
+
         // (Moods entered most recently are at the start of the array)
         // If the last 3 moods entered are 2 or below, insert an alert
-        if (moods[0].mood_score <= 2 &&
+        if (moods.length >= 3 &&
+            
+            moods[0].mood_score <= 2 &&
             moods[1].mood_score <= 2 && 
             moods[2].mood_score <= 2) {
 
