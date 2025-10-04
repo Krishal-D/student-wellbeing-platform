@@ -52,4 +52,15 @@ export async function submit(req, res, next){
         console.error('Database error: ', err);
         res.status(500).send('Server error');
     }   
+
+
+}
+
+export async function alertCheck(req, res, user_id) {
+    try {
+        
+    } catch (err) {
+        console.error('Database error: ', err);
+        res.status(500).send('Server error');
+    }
 }
