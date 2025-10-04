@@ -24,6 +24,7 @@ server.setup(app)
 // Register routers here
 app.use('/', homeRouter);
 app.use('/', searchRouter);
+app.use('/', eventRouter);
 app.use('/', moodRouter)
 app.use('/', registerRouter);
 app.use('/', alertDashboardRouter);
