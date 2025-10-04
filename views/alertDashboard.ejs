@@ -74,6 +74,32 @@
 
       </div>
 
+      <h2>All Alerts</h2>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>alertID</th>
+              <th>userID</th>
+              <th>date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% alerts.forEach(alert => { %>
+              <tr>
+                <td><%= alert.id %></td>
+                <td><%= alert.user_id %></td>
+                <td><%= alert.created_at %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      
+      
+
     </main>
 
     <!-- Footer HTML is in a separate file -->
