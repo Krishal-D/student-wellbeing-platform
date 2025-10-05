@@ -20,7 +20,6 @@ export async function loginPost(req, res) {
     const isAdmin = email === 'admin@example.com' || userType === 'admin';
     const userRole = isAdmin ? 'admin' : 'user';
     
-    // user data for cookie
     const userData = {
       userId: user.id,
       userName: user.name,

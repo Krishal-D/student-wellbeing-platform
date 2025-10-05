@@ -15,35 +15,31 @@ h1 {
   font-weight: normal;
 }
 
-/* Make a list display horizontally */
+/* Navigation links */
 .nav-links {
-  display: flex;          /* put items in a row */
-  gap: 100px;              /* space between items */
-  list-style: none;       /* remove bullets */
-  margin: 10px;              /* remove default ul margin */
-  padding: 10px;             /* remove default ul padding */
-  align-items: center;    /* vertically center items */
-  flex-wrap: wrap;        /* let items wrap on small screens */
+  display: flex;
+  gap: 100px;
+  list-style: none;
+  margin: 10px;
+  padding: 10px;
+  align-items: center;
+  flex-wrap: wrap;
 }
-
 
 .nav-links a {
-  text-decoration: none;  /* optional: remove link underline */
+  text-decoration: none;
 }
 
 
 
-/* Align Login button to right */
 .nav-login {
   margin-left: auto;
 }
 
-/* Align Logout button to right */
 .nav-logout {
   margin-left: auto;
 }
 
-/* Home page styles */
 .home-main {
   display: flex;
   justify-content: center;
@@ -52,7 +48,6 @@ h1 {
   padding: 2rem;
 }
 
-/* New column layout for home page */
 .home-main-columns {
   display: flex;
   flex-direction: column;
