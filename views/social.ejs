@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    
+    <!-- Header HTML is in a separate file -->
+    <%- include("partials/header") %>
+
+    <main>
+        <h2>Social Networking</h2>
+        <div class="socmedContainer">
+            <form action="/social" method="POST">
+                <p><b>Send a message to another user</b></p>
+
+                <label for="message">Message: </label><br>
+                <textarea id="message" name="message" rows="5" cols="85" placeholder="Enter your message here..."></textarea><br>
+                
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div class="socmedContainer">
+            <a class="socmedButton" href="/socmedDMs">Direct Messages</a>
+            <p>Click here to send a direct message to another user, and see direct messages that you've recieved.</p>
+        </div>
+    </main>
+
+    <!-- Footer HTML is in a separate file -->
+    <%- include("partials/footer") %>
+
+  </body>
+</html>
