@@ -1,4 +1,20 @@
 
+.page-title {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 2.2rem;
+  font-weight: bold;
+  background: none !important; /* Remove any red background */
+}
+
+.page-message {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #666;
+  font-size: 1rem;
+}
+
 .form-box {
   min-width: 320px;
   max-width: 420px;
@@ -56,6 +72,20 @@
   background-color: hsl(170, 90%, 35%);
   transform: scale(1.05);
 }
+.login-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.login-link a {
+  color: hsl(170, 80%, 40%);
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 620px) {
   .form-box {
     min-width: unset;
