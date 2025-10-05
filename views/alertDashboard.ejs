@@ -19,60 +19,26 @@
       <!-- 
       The alerts are displayed as a nested unordered list. (<ul> with another <ul>)
       So, the <li> elements in the outer list are each individual alert, 
-      and the <li> elements in the inner list are the details of that alert. (name, email etc)
+      and the <li> elements in the inner list are the details of that alert. (name, handed, date)
        -->
       <div class="alertDivContainer">
 
         <ul class = "alertList">
-
-          <li class="alertElement">
-            <ul class="alertDetails">
-              <li><p><b>Name:</b> (firstname surname)</p></li>
-              <li><p><b>Student Email:</b> (student email)</p></li>
-              <li><p><b>Date:</b> (date/time triggered)</p></li>
-              <li><p><b>More Info:</b> (alert information)</p></li>
-            </ul>
-          </li>
-
-          <li class="alertElement">
-            <ul class="alertDetails">
-              <li><p><b>Name:</b> (firstname surname)</p></li>
-              <li><p><b>Student Email:</b> (student email)</p></li>
-              <li><p><b>Date:</b> (date/time triggered)</p></li>
-              <li><p><b>More Info:</b> (alert information)</p></li>
-            </ul>
-          </li>
-
-          <li class="alertElement">
-            <ul class="alertDetails">
-              <li><p><b>Name:</b> (firstname surname)</p></li>
-              <li><p><b>Student Email:</b> (student email)</p></li>
-              <li><p><b>Date:</b> (date/time triggered)</p></li>
-              <li><p><b>More Info:</b> (alert information)</p></li>
-            </ul>
-          </li>
-
-          <li class="alertElement">
-            <ul class="alertDetails">
-              <li><p><b>Name:</b> (firstname surname)</p></li>
-              <li><p><b>Student Email:</b> (student email)</p></li>
-              <li><p><b>Date:</b> (date/time triggered)</p></li>
-              <li><p><b>More Info:</b> (alert information)</p></li>
-            </ul>
-          </li>
-
-          <li class="alertElement">
-            <ul class="alertDetails">
-              <li><p><b>Name:</b> (firstname surname)</p></li>
-              <li><p><b>Student Email:</b> (student email)</p></li>
-              <li><p><b>Date:</b> (date/time triggered)</p></li>
-              <li><p><b>More Info:</b> (alert information)</p></li>
-            </ul>
-          </li>
+      
+          <% alerts.forEach(alert => { %>
+            <li class="alertElement">
+              <ul class="alertDetails">
+                <li><p><b>Student's Name: </b><%= alert.name %></p></li>
+                <li><p><b>Handled: </b><%= alert.handled %></p></li>
+                <li><p><b>Date Triggered: </b><%= (alert.created_at).toLocaleString() %></p></li>
+              </ul>
+            </li>
+          <% }) %>
           
         </ul>
 
       </div>
+      
 
     </main>
 
