@@ -6,15 +6,26 @@
 
   <nav class="navbar">
     <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/mood">Mood Track</a></li>
-      <li><a href="/search">Search</a></li>
-      <li><a href="/social">Social Network</a></li>
-      <li><a href="/history">Mood History</a></li>
-      <li><a href="/profile">Profile</a></li>
-      <li><a href="/alertDashboard">Alert Dashboard</a></li>
-      <li><a href="/users">Users</a></li>
-      <li class="nav-login"><a href="/login">Login</a></li>
+      <% if (!user) { %>
+        <!-- Not logged in - show login only -->
+        <li><a href="/">Home</a></li>
+        <li class="nav-login"><a href="/login">Login</a></li>
+      <% } else if (user.userType === 'admin') { %>
+        <!-- Admin navigation -->
+        <li><a href="/">Home</a></li>
+        <li><a href="/alertDashboard">Alert Dashboard</a></li>
+        <li><a href="/users">Users</a></li>
+        <li class="nav-logout"><a href="/logout">Logout (Admin)</a></li>
+      <% } else { %>
+        <!-- Regular user navigation -->
+        <li><a href="/">Home</a></li>
+        <li><a href="/mood">Mood Track</a></li>
+        <li><a href="/search">Search</a></li>
+        <li><a href="/social">Social Network</a></li>
+        <li><a href="/history">Mood History</a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li class="nav-logout"><a href="/logout">Logout</a></li>
+      <% } %>
     </ul>
   </nav>
 
