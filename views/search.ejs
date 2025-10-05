@@ -37,6 +37,10 @@
           <option value="17-09-2025">17, September 2025</option>
           <option value="18-09-2025">18, September 2025</option>
           <option value="19-09-2025">19, September 2025</option>
+          <option value="20-09-2025">20, September 2025</option>
+          <option value="01-10-2025">01, October 2025</option>
+          <option value="05-10-2025">05, October 2025</option>
+          <option value="09-10-2025">09, October 2025</option>
         </select>
       </div>
 
@@ -47,6 +51,8 @@
           <option value="10:00">10:00</option>
           <option value="11:00">11:00</option>
           <option value="12:00">12:00</option>
+          <option value="13:00">13:00</option>
+          <option value="14:00">14:00</option>
         </select>
       </div>
 
@@ -59,69 +65,60 @@
           <option value="parramattacity">Parramatta City</option>
           <option value="parramattasouth">Parramatta South</option>
           <option value="penrith">Penrith</option>
+          <option value="online">Online</option>
+        </select>
+      </div>
+
+      <div class="dropdowns">
+        <select id="type" name="type">
+          <option value="">Type</option>
+          <option value="event">Event</option>
+          <option value="workshop">Workshop</option>
+          <option value="seminar">Seminar</option>
         </select>
       </div>
       </div>
     </form>
-      <br /><br />
-      
-    <section class="recommend-section" aria-labelledby="rec-title">
-      <h2 id="rec-title">Recommended for you</h2>
-
-      <div class="rec-grid">
+     
+    <!-- Search Results Section -->
+    <% if (typeof results !== 'undefined' && results.hasResults) { %>
+      <section class="search-results">
+        <h3>Search Results</h3>
         
-        <article class="rec-card">
-          <a class="rec-thumb" href="/events/mental-health-workshop" aria-label="Mental Health Workshop">
-            <img src="/images/istockphoto-1340965910-612x612.jpg" alt="Mental Health Workshop" />
-          </a>
-          <div class="rec-body">
-            <h3 class="rec-title">
-              <a href="/events/mental-health-workshop">Mental Health Workshop</a>
-            </h3>
-            <p class="rec-sub">Learn coping strategies</p>
+        <!-- All Results as Events -->
+        <% if (results.events && results.events.length > 0) { %>
+          <div class="results-section">
+            <h4>Events (<%= results.events.length %>)</h4>
+            <div class="events-list">
+              <% results.events.forEach(function(event) { %>
+                <div class="event-card">
+                  <h4><a href="/events/<%= event.id %>" style="color: #2c3e50; text-decoration: none;"><%= event.title %></a></h4>
+                  <p><%= event.subtitle %></p>
+                  <div class="event-meta">
+                    <span class="event-category"><%= event.category %></span>
+                    <span class="event-type"><%= event.type %></span>
+                    <% if (event.date) { %>
+                      <span class="event-date"><%= event.date %></span>
+                    <% } %>
+                    <span class="event-location"><%= event.location %></span>
+                  </div>
+                  <div style="margin-top: 10px;">
+                    <a href="/events/<%= event.id %>" class="btn btn-secondary" style="margin-right: 8px;">View Details</a>
+                    <a href="/events/<%= event.id %>/book" class="btn btn-primary" style="margin-left: 8px;">Book now</a>
+                  </div>
+                </div>
+              <% }); %>
+            </div>
           </div>
-        </article>
-
-        
-        <article class="rec-card">
-          <a class="rec-thumb" href="/events/Learning-skills-seminar" aria-label="Learning Skills Seminar">
-            <img src="/images/Learning-Skill-icon-Graphics-26544562-1-1-580x387.jpg" alt="Learning Skills Seminar" />
-          </a>
-          <div class="rec-body">
-            <h3 class="rec-title">
-              <a href="/events/Learning-skills-seminar">Learning Skills Seminar</a>
-            </h3>
-            <p class="rec-sub">Improve your study habits</p>
-          </div>
-        </article>
-
-        
-        <article class="rec-card">
-          <a class="rec-thumb" href="/events/career-fair" aria-label="Career Fair">
-            <img src="/images/360_F_1527954928_5UPs5ilDSieF6nu9LGfV8J36RtvDgGhF.jpg" alt="Career Fair" />
-          </a>
-          <div class="rec-body">
-            <h3 class="rec-title">
-              <a href="/events/career-fair">Career Fair</a>
-            </h3>
-            <p class="rec-sub">Explore job opportunities</p>
-          </div>
-        </article>
-
-        
-        <article class="rec-card">
-          <a class="rec-thumb" href="/events/social-mixer" aria-label="Social Mixer">
-            <img src="/images/social-wellbeing-concept-icon.jpg" alt="Social Mixer" />
-          </a>
-          <div class="rec-body">
-            <h3 class="rec-title">
-              <a href="/events/social-mixer">Social Mixer</a>
-            </h3>
-            <p class="rec-sub">Meet new people</p>
-          </div>
-        </article>
-      </div>
-    </section>
+        <% } %>
+      </section>
+    <% } else if (typeof results !== 'undefined' && !results.hasResults && (query || category || date || time || campus || type)) { %>
+      <section class="search-results">
+        <h3>No Results Found</h3>
+        <p>Result not found or browse our <a href="/">Suggested events</a>.</p>
+      </section>
+    <% } %>
+    
     </main>
     
     <!-- Footer HTML is in a separate file -->

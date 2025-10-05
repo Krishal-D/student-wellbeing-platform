@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/search.css" />
+  </head>
+  <body>
+    <%- include("partials/header") %>
+
+    <main class="container">
+      <h2>My Event Tickets</h2>
+      <br />
+      <% if (already) { %>
+        <div class="toast">You’ve already added this event.</div>
+      <% } %>
+      <br />
+      <% if (events && events.length > 0) { %>
+        <div class="events-list">
+          <% events.forEach(function(event){ %>
+            <div class="event-card">
+              <div class="event-card-content">
+                <h4><a href="/events/<%= event.id %>"><%= event.title %></a></h4>
+                <p><%= event.subtitle || '' %></p>
+                <div class="meta">
+                  <span><strong>Date:</strong> <%= event.date %></span>
+                  <span><strong>Time:</strong> <%= event.time %></span>
+                  <span><strong>Location:</strong> <%= event.location %></span>
+                </div>
+              </div>
+              <div class="event-card-actions">
+                <a href="/events/<%= event.id %>" class="btn btn-secondary">View</a>
+                <a href="/events/<%= event.id %>/unbook" class="btn btn-danger" style="background-color: red; margin-left:8px;">Remove</a>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <p>No tickets yet. Browse <a href="/search">events</a> to join.</p>
+      <% } %>
+      <br /> <br />
+        <a href="/search" class="btn btn-primary" >Search More Events</a>
+
+    </main>
+
+    <%- include("partials/footer") %>
+  </body>
+</html>
