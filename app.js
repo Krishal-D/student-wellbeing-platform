@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 
 import { homeRouter } from './routes/home.js';
 import { searchRouter } from './routes/search.js';
+import { eventRouter } from './routes/event.js';
 import { moodRouter } from './routes/mood.js';
 import { registerRouter } from './routes/register.js';
 import { alertDashboardRouter } from './routes/alertDashboard.js';
@@ -50,7 +51,8 @@ app.use((req, res, next) => {
 app.use('/', authRouter);
 app.use('/', homeRouter);
 app.use('/', searchRouter);
-app.use('/', moodRouter);
+app.use('/', eventRouter);
+app.use('/', moodRouter)
 app.use('/', registerRouter);
 app.use('/', alertDashboardRouter);
 app.use('/', usersRouter);

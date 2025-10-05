@@ -23,7 +23,6 @@ h1 {
   margin: 10px;              /* remove default ul margin */
   padding: 10px;             /* remove default ul padding */
   align-items: center;    /* vertically center items */
-  /* optional */
   flex-wrap: wrap;        /* let items wrap on small screens */
 }
 
@@ -53,10 +52,38 @@ h1 {
   padding: 2rem;
 }
 
+/* New column layout for home page */
+.home-main-columns {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.auth-section {
+  border-radius: 15px;
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.events-section {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
 .home-content {
   text-align: center;
   max-width: 600px;
   margin: 0 auto;
+}
+
+.auth-section .home-content {
+  max-width: 100%;
 }
 
 .home-title {
@@ -115,14 +142,14 @@ h1 {
 }
 
 .btn-secondary {
-  background: transparent;
-  color: #667eea;
+  background: transparent !important;
+  color: #667eea !important;
   border: 2px solid #667eea;
 }
 
 .btn-secondary:hover {
-  background: #667eea;
-  color: white;
+  background: #667eea !important;
+  color: white !important;
   transform: translateY(-2px);
 }
 
