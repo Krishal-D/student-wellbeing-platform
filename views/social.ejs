@@ -3,6 +3,33 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <style>
+
+        div.socmedContainer {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            background: #cc0101;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.2s ease-in-out;
+        }   
+
+        button:hover {
+            background: #a30000;
+        }
+    </style>
+
   </head>
   <body>
     
@@ -13,18 +40,21 @@
         <h2>Social Networking</h2>
         <div class="socmedContainer">
             <form action="/social" method="POST">
-                <p><b>Send a message to another user</b></p>
+                <h3>Send a message to another user:</h3>
 
                 <label for="message">Message: </label><br>
                 <textarea id="message" name="message" rows="5" cols="85" placeholder="Enter your message here..."></textarea><br>
                 
-                <button type="submit">Submit</button>
+                <label for="username">Username: </label><br>
+                <input type="text" name="username" placeholder="Username..." /><br>
+
+                <button type="submit">Send Message</button>
             </form>
         </div>
 
         <div class="socmedContainer">
-            <a class="socmedButton" href="/socmedDMs">Direct Messages</a>
-            <p>Click here to send a direct message to another user, and see direct messages that you've recieved.</p>
+            <h3>Inbox</h3>
+            <p>Messages that have been sent to you will be visible here.</p>
         </div>
     </main>
 

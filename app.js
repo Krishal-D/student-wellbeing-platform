@@ -9,6 +9,7 @@ import { registerRouter } from './routes/register.js';
 import { alertDashboardRouter } from './routes/alertDashboard.js';
 import { usersRouter } from './routes/users.js';
 import {historyRouter} from './routes/history.js';
+import { socialRouter } from './routes/social.js';
 
 // Setup debug module to spit out all messages
 // Do `npn start` to see the debug messages
@@ -28,6 +29,7 @@ app.use('/', registerRouter);
 app.use('/', alertDashboardRouter);
 app.use('/',usersRouter)
 app.use('/', historyRouter);
+app.use('/', socialRouter);
 
 // Not encouraged, but this is a simple example of how to register a route without a router.
 app.get('/test', (req, res) => {
