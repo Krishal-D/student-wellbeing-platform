@@ -52,4 +52,50 @@ export async function submit(req, res, next){
         console.error('Database error: ', err);
         res.status(500).send('Server error');
     }   
+
+    // change "1" later after the login is setup
+    alertCheck(req, res, 1); 
 }
+
+// Check if an alert needs to be created
+export async function alertCheck(req, res, user_id) {
+    try {
+        // Get all moods entered by the user (user_id)
+        const result = await pool.query(
+            'SELECT id, mood_score, notes, created_at FROM mood WHERE user_id = $1 ORDER BY created_at DESC',
+            [user_id]
+        );
+        const moods = result.rows;
+
+        // (Moods entered most recently are at the start of the array)
+        // If the last 3 moods entered are 2 or below, insert an alert
+        if (moods.length >= 3 &&
+            
+            moods[0].mood_score <= 2 &&
+            moods[1].mood_score <= 2 && 
+            moods[2].mood_score <= 2) {
+
+            insertAlert(req, res, user_id);
+        }
+        
+        
+    } catch (err) {
+        console.error('Database error: ', err);
+    }
+}
+
+// Insert an alert into the alert table for the given user_id
+export async function insertAlert(req, res, user_id) {
+    try {
+        await pool.query(
+            'INSERT INTO alert (user_id) VALUES ($1)',
+            [user_id]
+        ); 
+
+        console.log('alert entered into the alert table');
+        
+    } catch (err) {
+        console.error('Database error: ', err);
+    }
+}
+
