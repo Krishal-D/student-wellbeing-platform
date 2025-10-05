@@ -9,9 +9,34 @@
     <!-- Header HTML is in a separate file -->
     <%- include("partials/header") %>
 
-    <main>
-      <h2>Welcome to the Home Page</h2>
-      <p>This app is built with Express and EJS. 🎉</p>
+    <main class="home-main">
+      <div class="home-content">
+        <% if (typeof user !== 'undefined' && user) { %>
+          <h1 class="home-title">Welcome back, <%= user.userType === 'admin' ? 'Admin' : user.userName %>! 🌟</h1>
+          <p class="home-subtitle"><%= user.userType === 'admin' ? 'Manage your platform effectively today!' : 'Ready to take care of your wellbeing today?' %></p>
+          <% if (user.userType === 'admin') { %>
+            <div class="home-message">
+              <p>As an administrator, you can monitor user wellbeing and manage system alerts.</p>
+              <p>Use the <a href="/alertDashboard" class="home-link">Alert Dashboard</a> and <a href="/users" class="home-link">Users</a> sections to oversee the platform.</p>
+            </div>
+          <% } else { %>
+            <div class="home-message">
+              <p>Track your mood, explore your emotional journey, and discover insights about your mental wellbeing.</p>
+              <p>Use the navigation above to get started with your wellbeing journey!</p>
+            </div>
+          <% } %>
+        <% } else { %>
+          <h1 class="home-title">Welcome to Wellbeing Hub 💚</h1>
+          <p class="home-subtitle">Your journey to better mental health starts here</p>
+          <div class="home-message">
+            <p>Take control of your emotional wellbeing with our comprehensive mood tracking and mental health tools.</p>
+            <div class="home-actions">
+              <a href="/login" class="btn-primary">Sign In</a>
+              <a href="/register" class="btn-secondary">Get Started</a>
+            </div>
+          </div>
+        <% } %>
+      </div>
     </main>
 
     <!-- Footer HTML is in a separate file -->
