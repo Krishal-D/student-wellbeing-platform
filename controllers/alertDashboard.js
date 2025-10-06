@@ -11,7 +11,11 @@ export async function show(req, res, next) {
       JOIN users ON alert.user_id = users.id 
       ORDER BY alert.created_at DESC`
     );
-    const alerts = result.rows;
+    // convert to AU/Sydney timezone
+    const alerts = result.rows.map((alert) => {
+      const localTime = new Date(alert.created_at).toLocaleString('en-AU', {timeZone: 'Australia/Sydney'});
+      return {...alert, created_at: localTime};
+    });
 
     res.render('alertDashboard', {title: 'Alert Dashboard', alerts});
 

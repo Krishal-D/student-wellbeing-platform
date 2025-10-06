@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS mood (
     user_id INTEGER REFERENCES users(id),
     mood_score INTEGER NOT NULL,
     notes TEXT,
-    created_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMPTZ DEFAULT NOW()
 );
