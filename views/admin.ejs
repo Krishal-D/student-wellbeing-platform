@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    
+    <main class="container">
+      <h2>Admin Dashboard</h2>
+      <p>Welcome, <%= user ? user.userName : 'Admin' %>!</p>
+      
+      <div class="admin-options">
+        <div class="option-card">
+          <h3>Alert Dashboard</h3>
+          <p>Monitor and manage user alerts</p>
+          <a href="/alertDashboard" class="btn">View Alerts</a>
+        </div>
+        
+        <div class="option-card">
+          <h3>User Management</h3>
+          <p>View and manage registered users</p>
+          <a href="/users" class="btn">Manage Users</a>
+        </div>
+      </div>
+    </main>
+    
+    <%- include('partials/footer') %>
+  </body>
+</html>
