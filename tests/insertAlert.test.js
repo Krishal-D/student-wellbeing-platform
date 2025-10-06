@@ -1,25 +1,24 @@
-import {alertCheck, insertAlert} from './mood.js';
-import {suite, test} from 'node:test';
+import {alertCheck, insertAlert} from '../controllers/mood.js';
+import {suite, test, beforeEach, mock} from 'node:test';
 import assert from 'node:assert';
 
-let pool;
-let insertAlertCalled;
 
-suite('alertCheck() Tests', () => {
-    beforeEach(() => {
-        pool = { query: async () => ({ rows: [] }) };
-        
-        // Helper to track calls
-        insertAlertCalled = false;
-        moodModule.insertAlert = async () => { insertAlertCalled = true; };
-    });
+
+
+suite('alertCheck() unit tests', () => {
 
     test('Should not call insertAlert if less than 3 moods', async () => {
-        pool.query = async () => ({rows: [{mood_score: 2}, {mood_score: 2}]});
+        let insertAlertCalled = false;
 
-        await alertCheck({}, {}, 1);
+        mock.method('../controllers/mood.js', 'insertAlert', async () => { insertAlertCalled = true; });
+
+
+        const mockPool = { query: async () => ({rows: [{mood_score: 2}, {mood_score: 2}]}) };
+
+        await alertCheck({pool: mockPool}, {}, 1);
 
         assert.strictEqual(insertAlertCalled, false, 'insertAlert should NOT be called for less than 3 moods');
+    
     });
 
 });
