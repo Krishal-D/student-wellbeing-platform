@@ -23,12 +23,27 @@ export async function registerUser(req, res) {
       return res.status(400).send('Email already registered');
     }
 
-    await pool.query(
-      'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
-      [name, email, password] // i will use bycrypt later
+    const insert = await pool.query(
+      'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id, name, email',
+      [name, email, password] // TODO: hash password with bcrypt
     )
 
-    console.log('✅ New user registered:', { name, email });
+  const newUser = insert.rows[0];
+  console.log('✅ New user registered:', { name, email });
+
+    // Auto-login: set auth cookie for the new user
+    const userData = {
+      userId: newUser.id,
+      userName: newUser.name,
+      userType: 'user',
+      email: newUser.email
+    };
+
+    res.cookie('user', JSON.stringify(userData), {
+      maxAge: 24 * 60 * 60 * 1000,
+      httpOnly: true
+    });
+
     res.redirect('/');
   } catch (err) {
     console.error('Database error:', err);

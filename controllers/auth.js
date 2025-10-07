@@ -5,10 +5,10 @@ export function loginView(req, res) {
 }
 
 export async function loginPost(req, res) {
-  const { email, password, userType } = req.body;
+  const { email, password } = req.body;
   
   try {
-    // password validation
+  // password validation
     const result = await pool.query('SELECT id, name, email, password FROM users WHERE email = $1', [email]);
     const user = result.rows[0];
     
@@ -16,9 +16,8 @@ export async function loginPost(req, res) {
       return res.render('login', { error: 'Invalid credentials', title: 'Login' });
     }
     
-    // check if user is admin
-    const isAdmin = email === 'admin@example.com' || userType === 'admin';
-    const userRole = isAdmin ? 'admin' : 'user';
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com';
+  const userRole = (user && user.email === adminEmail) ? 'admin' : 'user';
     
     const userData = {
       userId: user.id,
