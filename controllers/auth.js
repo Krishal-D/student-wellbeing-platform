@@ -9,7 +9,6 @@ export async function loginPost(req, res) {
   
   try {
   // password validation
-  // select only existing columns to avoid SQL errors on schemas without role/user_type
     const result = await pool.query('SELECT id, name, email, password FROM users WHERE email = $1', [email]);
     const user = result.rows[0];
     
@@ -17,7 +16,6 @@ export async function loginPost(req, res) {
       return res.render('login', { error: 'Invalid credentials', title: 'Login' });
     }
     
-  // determine role: prefer DB columns if present (not selected here), otherwise fall back to ADMIN_EMAIL env
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com';
   const userRole = (user && user.email === adminEmail) ? 'admin' : 'user';
     
