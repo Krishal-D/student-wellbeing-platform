@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "DEBUG=* node app.js",
-    "test": "node --test tests/search.test.js"
+    "test": "node --test"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
