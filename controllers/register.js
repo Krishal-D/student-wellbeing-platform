@@ -29,6 +29,7 @@ export async function registerUser(req, res) {
     )
 
   const newUser = insert.rows[0];
+  console.log('✅ New user registered:', { name, email });
 
     // Auto-login: set auth cookie for the new user
     const userData = {
