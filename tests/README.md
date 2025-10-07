@@ -7,12 +7,6 @@ Simple tests for the search functionality using Node.js built-in test runner (no
 ```bash
 npm test
 ```
-### OR
-
-### Run Tests in Watch Mode
-```bash
-npm run test:watch
-```
 
 -- Search test function --
 
