@@ -14,7 +14,8 @@ export async function submit(req, res, next){
             return res.status(400).send('Invalid mood score');
         }
 
-        const user_id = 1; // update later after the login is setup
+        // get the userId from the middleware
+        const user_id = req.user.userId;
 
         // save to database
         await pool.query(
