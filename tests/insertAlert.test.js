@@ -54,4 +54,23 @@ describe ('Alert insert tests', () => {
         assert.strictEqual(alertInserted, false, 'Alert should have been inserted into the database');
     });
 
+    test('alert is NOT added when no moods have been entered', async () => {
+        mock.method(pool, 'query', async (sql, params) => {
+            if (sql.startsWith('INSERT INTO alert')) {
+                alertInserted = true;
+            }
+            if (sql.startsWith('SELECT')) {
+                return { 
+                    rows: [],
+                };
+            }
+        });
+
+        alertInserted = false;
+
+        await alertCheck({}, {}, 1);
+
+        assert.strictEqual(alertInserted, false, 'Alert should have been inserted into the database');
+    });
+
 });
