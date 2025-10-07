@@ -28,8 +28,7 @@ export async function registerUser(req, res) {
       [name, email, password] // TODO: hash password with bcrypt
     )
 
-    const newUser = insert.rows[0];
-    console.log('✅ New user registered:', { name, email });
+  const newUser = insert.rows[0];
 
     // Auto-login: set auth cookie for the new user
     const userData = {
