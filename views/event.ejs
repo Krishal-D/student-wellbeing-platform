@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/search.css" />
+  </head>
+  <body>
+    
+
+    <main class="event-container">
+      <a href="/search" class="back-link">← Back to Search </a>
+      
+      <div class="event-header">
+        <h1 class="event-title"><%= event.title %></h1>
+        <p class="event-subtitle"><%= event.subtitle %></p>
+      </div>
+
+      <div class="event-details">
+        <div class="detail-card">
+          <div class="detail-label">Date</div>
+          <div class="detail-value"><%= event.date %></div>
+        </div>
+        
+        <div class="detail-card">
+          <div class="detail-label">Time</div>
+          <div class="detail-value"><%= event.time %></div>
+        </div>
+        
+        <div class="detail-card">
+          <div class="detail-label">Duration</div>
+          <div class="detail-value"><%= event.duration %></div>
+        </div>
+        
+        <div class="detail-card">
+          <div class="detail-label">Location</div>
+          <div class="detail-value"><%= event.location.charAt(0).toUpperCase() + event.location.slice(1).replace(/([A-Z])/g, ' $1') %></div>
+        </div>
+        
+        <div class="detail-card">
+          <div class="detail-label">Instructor</div>
+          <div class="detail-value"><%= event.instructor %></div>
+        </div>
+        
+        <div class="detail-card">
+          <div class="detail-label">Max Participants</div>
+          <div class="detail-value"><%= event.maxParticipants %></div>
+        </div>
+      </div>
+
+      <div class="event-description">
+        <h3>About This <%= event.type.charAt(0).toUpperCase() + event.type.slice(1) %></h3>
+        <p><%= event.description %></p>
+      </div>
+
+      <div class="event-features">
+        <h3>What You'll Get</h3>
+        <ul class="features-list">
+          <% event.details.forEach(function(detail) { %>
+            <li><%= detail %></li>
+          <% }); %>
+        </ul>
+      </div>
+
+      <div class="action-buttons">
+        <a href="/events/<%= event.id %>/book" class="btn btn-primary">Book now</a>
+        <a href="/my-events" class="btn btn-secondary">My Events</a>
+      </div>
+    </main>
+
+    <%- include("partials/footer") %>
+
+  </body>
+</html>

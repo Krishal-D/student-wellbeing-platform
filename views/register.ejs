@@ -8,9 +8,9 @@
 	<link rel="stylesheet" href="/stylesheets/register.css" />
 </head>
 	<body class="register-page">
-	<%- include("partials/header") %>
 	<main class="container">
-			<h2>Register</h2>
+			<h1 class="page-title">Join Our Community!</h1>
+			<p class="page-message">Create your account to start your wellbeing journey</p>
 			<div class="form-box">
 				<form action="/register" method="POST">
 					<label for="name">Name:</label>
@@ -27,8 +27,11 @@
 
 					<button type="submit">Register</button>
 				</form>
+				
+				<div class="login-link">
+					<p>Already have an account? <a href="/login">Login here</a></p>
+				</div>
 			</div>
 	</main>
-	<%- include("partials/footer") %>
 </body>
 </html>
