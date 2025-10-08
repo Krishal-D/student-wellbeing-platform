@@ -1,0 +1,22 @@
+div.socmedContainer {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    background: #cc0101;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}   
+
+button:hover {
+    background: #a30000;
+}

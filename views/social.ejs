@@ -3,33 +3,6 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-
-    <style>
-
-        div.socmedContainer {
-            border: 1px solid black;
-            padding: 10px;
-            margin: 10px;
-        }
-
-        button {
-            margin-top: 15px;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 4px;
-            background: #cc0101;
-            color: #fff;
-            cursor: pointer;
-            transition: background 0.2s ease-in-out;
-        }   
-
-        button:hover {
-            background: #a30000;
-        }
-    </style>
-
   </head>
   <body>
     
@@ -43,10 +16,10 @@
                 <h3>Send a message to another user:</h3>
 
                 <label for="message">Message: </label><br>
-                <textarea id="message" name="message" rows="5" cols="85" placeholder="Enter your message here..."></textarea><br>
+                <textarea id="message_text" name="message" rows="5" cols="85" placeholder="Enter your message here..."></textarea><br>
                 
                 <label for="username">Username: </label><br>
-                <input type="text" name="username" placeholder="Username..." /><br>
+                <input id="to_user" type="text" name="username" placeholder="Username..." /><br>
 
                 <button type="submit">Send Message</button>
             </form>
