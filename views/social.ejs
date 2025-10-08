@@ -3,6 +3,7 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/social.css' />
   </head>
   <body>
     
@@ -16,13 +17,13 @@
                 <h3>Send a message to another user:</h3>
 
                 <label for="username">Username: </label><br>
-                <input id="to_user" type="text" name="username" placeholder="Username..." /><br>
+                <input id="to_user" type="text" name="to_user" placeholder="Username..." /><br>
                 <% if (errors && errors.to_user) { %>
                     <p class="error">No username entered.</p>
                 <% } %>
 
                 <label for="message">Message: </label><br>
-                <textarea id="message_text" name="message" rows="5" cols="85" placeholder="Enter your message here..."></textarea><br>
+                <textarea id="message_text" name="message_text" rows="5" cols="85" placeholder="Enter your message here..."></textarea><br>
                 <% if (errors && errors.message_text) { %>
                     <p class="error">No message entered.</p>
                 <% } %>

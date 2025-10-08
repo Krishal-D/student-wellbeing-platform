@@ -26,6 +26,7 @@ export async function submit(req, res, next) {
     const userRow = result.rows; 
     console.log("User row: ", userRow);
     console.log("User row length: ", userRow.length);
+    console.log("to_user = ", to_user);
 
   } catch (err) {
       console.error('Database error: ', err);
