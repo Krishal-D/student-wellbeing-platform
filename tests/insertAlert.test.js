@@ -26,7 +26,7 @@ describe ('Alert insert tests', () => {
 
         alertInserted = false;
 
-        await alertCheck({}, {}, 1);
+        await alertCheck({}, {}, {});
 
         assert.strictEqual(alertInserted, true, 'Alert should have been inserted into the database');
     });
@@ -69,7 +69,7 @@ describe ('Alert insert tests', () => {
 
         alertInserted = false;
 
-        await alertCheck({}, {}, 1);
+        await alertCheck({}, {}, {});
 
         assert.strictEqual(alertInserted, false, 'Alert should have been inserted into the database');
     });
