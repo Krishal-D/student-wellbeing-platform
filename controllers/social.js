@@ -9,7 +9,7 @@ export async function submit(req, res, next) {
   const user_id = req.user.userId;
   const {to_user, message_text} = req.body;
   const errors = {};
-  const userRow;
+  let userRow;
 
   // if username field is empty
   if (!to_user) {
@@ -28,9 +28,11 @@ export async function submit(req, res, next) {
       `SELECT id, name FROM users WHERE name = $1`, [to_user]
     );
     userRow = result.rows; 
+    console.log('userRow: ', userRow);
   } catch (err) {
       console.error('Database error when reading from database', err);
       errors.to_user = 'The username does not exist.';
+      return res.render('social', { title: 'Social Networking', errors: errors });
   }
 
   // if there are errors, render page with error messages under form elements
@@ -42,8 +44,10 @@ export async function submit(req, res, next) {
           `INSERT INTO message 
           (to_user_id, from_user_id, message_text) 
           VALUES ($1, $2, $3)`,
-          [user_id, ]
+          [userRow[0].id, user_id, message_text]
+          // ^ recipitent, signed-in user, message content
       ); 
+
 
       console.log('message entered into the message table');
     } catch (err) {
