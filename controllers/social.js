@@ -1,7 +1,7 @@
 import {pool} from '../config/db.js';
 
 export async function show(req, res, next) {
-  res.render('social', { title: 'Social Networking', errors : {} });
+  res.render('social', { title: 'Social Networking', errors : {}, success : {} });
 }
 
 export async function submit(req, res, next) {
@@ -9,6 +9,7 @@ export async function submit(req, res, next) {
   const user_id = req.user.userId;
   const {to_user, message_text} = req.body;
   const errors = {};
+  const success = {}
   let userRow;
 
   // if username field is empty
@@ -28,7 +29,13 @@ export async function submit(req, res, next) {
       `SELECT id, name FROM users WHERE name = $1`, [to_user]
     );
     userRow = result.rows; 
-    console.log('userRow: ', userRow);
+
+    if (userRow.length == 0) {
+      errors.to_user = "User not found in database";
+    }
+
+    // console.log('userRow length: ', userRow.length);
+
   } catch (err) {
       console.error('Database error when reading from database', err);
       errors.to_user = 'The username does not exist.';
@@ -48,11 +55,16 @@ export async function submit(req, res, next) {
           // ^ recipitent, signed-in user, message content
       ); 
 
-
       console.log('message entered into the message table');
+
+      success.submitMessage = "Message successfully sent."
+      return res.render('social', { title: 'Social Networking', errors: errors, success: success});
+      
     } catch (err) {
       console.error('Database error when entering message into database', err);
     }
+
+
   }
  
 
