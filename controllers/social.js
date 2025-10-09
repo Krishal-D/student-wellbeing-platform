@@ -6,7 +6,7 @@ export async function show(req, res, next) {
   try {
     const user_id = req.user.userId;
     
-    // get all messages that have been sent
+    // get all messages that have been sent to the logged-in user
     const result = await pool.query(
       `SELECT users.name, message.message_text, message.created_at
       FROM message 
@@ -36,15 +36,14 @@ export async function show(req, res, next) {
 export async function submit(req, res, next) {
 
   const user_id = req.user.userId;
-  const {to_user, message_text} = req.body;
-  const errors = {};
+  const {to_user, message_text} = req.body;   // from form
+  const errors = {};  //  errors in this will display under the form elements
   let userRow;
 
   // if username field is empty
   if (!to_user) {
     errors.to_user = 'No username entered.';
-  } else {
-    // check if the username exists in the database
+  } else { // check if the username exists in the database
     try {
       const result = await pool.query(
         `SELECT id, name FROM users WHERE name = $1`, [to_user]
@@ -55,7 +54,6 @@ export async function submit(req, res, next) {
         errors.to_user = "User not found in database";
       }
 
-      // console.log('userRow length: ', userRow.length);
 
     } catch (err) {
         console.error('Database error when reading from database', err);
@@ -63,8 +61,6 @@ export async function submit(req, res, next) {
         return res.render('social', { title: 'Social Networking', inboxMessages, errors: errors, success : false });
     }
   }
-
-
 
   // if message field is empty
   if (!message_text) {
