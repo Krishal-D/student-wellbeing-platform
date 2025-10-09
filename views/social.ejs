@@ -19,22 +19,43 @@
                 <label for="username">Username: </label><br>
                 <input id="to_user" type="text" name="to_user" placeholder="Username..." /><br>
                 <% if (errors && errors.to_user) { %>
-                    <p class="error">No username entered.</p>
+                    <p class="error"><%= errors.to_user %></p>
                 <% } %>
-
+                
+                <br>
                 <label for="message">Message: </label><br>
                 <textarea id="message_text" name="message_text" rows="5" cols="85" placeholder="Enter your message here..."></textarea><br>
                 <% if (errors && errors.message_text) { %>
-                    <p class="error">No message entered.</p>
+                    <p class="error"><%= errors.message_text %></p>
                 <% } %>
 
                 <button type="submit">Send Message</button>
+                <% if (success) { %>
+                    <p class="success"> Message sent. </p>
+                <% } %>
             </form>
         </div>
 
-        <div class="socmedContainer">
+        <div class="inboxContainer">
             <h3>Inbox</h3>
             <p>Messages that have been sent to you will be visible here.</p>
+
+            <a class="inboxRefreshButton" href="/social">Refresh</a>
+
+            <ul class = "messageList">
+      
+            <% inboxMessages.forEach(message => { %>
+              <li class="messageElement">
+                <ul class="messageDetails">
+                  <li><p><b>From: </b><%= message.name %></p></li>
+                  <li><p><b>Sent: </b><%= (message.created_at).toLocaleString() %></p></li>
+                  <li><p><b>Message: </b><%= message.message_text %></p></li>
+                </ul>
+              </li>
+            <% }) %>
+          
+        </ul>
+
         </div>
     </main>
 
