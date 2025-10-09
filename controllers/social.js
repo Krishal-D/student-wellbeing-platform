@@ -10,7 +10,7 @@ export async function show(req, res, next) {
     const result = await pool.query(
       `SELECT users.name, message.message_text, message.created_at
       FROM message 
-      JOIN users ON message.to_user_id = users.id 
+      JOIN users ON message.from_user_id = users.id 
       WHERE message.to_user_id = $1
       ORDER BY message.created_at DESC`,
       [user_id]

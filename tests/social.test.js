@@ -64,9 +64,6 @@ describe('tests for the show() function', () => {
         assert.notStrictEqual(date, 'Invalid Date');  
         // ^ Not having a date will result in "invalid date", not  empty like the others 
 
-        console.log("args:::::: ", res.render.mock.calls[0].arguments[1]);
-        console.log("date: ", date);
-
 
     });
 
