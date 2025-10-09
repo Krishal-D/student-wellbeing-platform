@@ -54,7 +54,7 @@ export async function submit(req, res, next) {
         errors.to_user = "User not found in database.";
       }
 
-      console.log("userRow: ", userRow);
+      // console.log("userRow: ", userRow);
 
     } catch (err) {
         console.error('Database error when reading from database', err);
