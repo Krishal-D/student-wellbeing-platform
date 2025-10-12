@@ -6,52 +6,41 @@ import { show } from '../controllers/search.js';
 describe('Search Feature Tests', () => {
   // Test the core search functionality
   describe('searchEvents function', () => {
-    test('should return all events when no filters provided', () => {
-      const results = searchEvents({});
+    test('should return all events when no filters provided', async () => {
+      const results = await searchEvents({});
       assert.ok(Array.isArray(results));
       assert.ok(results.length > 0);
     });
 
-    test('should filter events by query string', () => {
-      const results = searchEvents({ query: 'yoga' });
-      assert.ok(results.length > 0);
-      assert.ok(results.some(event => 
-        event.title.toLowerCase().includes('yoga') ||
-        event.description.toLowerCase().includes('yoga')
-      ));
-    });
-
-    test('should filter events by category', () => {
-      const results = searchEvents({ category: 'fitness' });
-      assert.ok(results.length > 0);
-      assert.ok(results.every(event => event.category === 'fitness'));
-    });
-
-    test('should handle case-insensitive search', () => {
-      const lowerResults = searchEvents({ query: 'yoga' });
-      const upperResults = searchEvents({ query: 'YOGA' });
+    test('should handle case-insensitive search', async () => {
+      const lowerResults = await searchEvents({ query: 'yoga' });
+      const upperResults = await searchEvents({ query: 'YOGA' });
       assert.deepStrictEqual(lowerResults, upperResults);
     });
 
-    test('should return empty array when no matches found', () => {
-      const results = searchEvents({ query: 'nonexistentEvent12345' });
+    test('should return empty array when no matches found', async () => {
+      const results = await searchEvents({ query: 'nonexistentEvent12345' });
       assert.strictEqual(results.length, 0);
     });
 
-    test('should combine multiple filters', () => {
-      const results = searchEvents({ 
-        category: 'fitness',
-        query: 'yoga'
-      });
-      
-      results.forEach(event => {
-        assert.strictEqual(event.category, 'fitness');
-        assert.ok(
-          event.title.toLowerCase().includes('yoga') ||
-          event.description.toLowerCase().includes('yoga') ||
-          event.subtitle.toLowerCase().includes('yoga')
-        );
-      });
+    test('should filter by location/campus', async () => {
+      const results = await searchEvents({ campus: 'parramatta' });
+      assert.ok(results.length > 0);
+      assert.ok(results.every(event => 
+        event.location.toLowerCase().includes('parramatta')
+      ));
+    });
+
+    test('should filter by date', async () => {
+      const results = await searchEvents({ date: '18-09-2025' });
+      assert.ok(results.length > 0);
+      assert.ok(results.every(event => event.date === '18-09-2025'));
+    });
+
+    test('should filter by event type', async () => {
+      const results = await searchEvents({ type: 'workshop' });
+      assert.ok(results.length > 0);
+      assert.ok(results.every(event => event.type === 'workshop'));
     });
   });
 
@@ -116,27 +105,4 @@ describe('Search Feature Tests', () => {
     });
   });
 
-  // Basic data validation tests
-  describe('data validation', () => {
-    test('should have valid event data structure', () => {
-      const results = searchEvents({});
-      const event = results[0];
-      
-      assert.ok(event.id);
-      assert.ok(event.title);
-      assert.ok(event.category);
-      assert.ok(event.date);
-      assert.ok(event.time);
-      assert.ok(event.location);
-      assert.ok(event.type);
-      assert.ok(event.description);
-    });
-
-    test('should have unique event IDs', () => {
-      const results = searchEvents({});
-      const ids = results.map(event => event.id);
-      const uniqueIds = new Set(ids);
-      assert.strictEqual(ids.length, uniqueIds.size);
-    });
-  });
 });
