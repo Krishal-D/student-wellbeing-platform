@@ -13,30 +13,62 @@
     <main>
       <h2>Alert Dashboard</h2>
 
-      <h3>Alert List</h3>
-      <p>A list of all of the Crisis Alerts that have been generated.</p>
+      <div class="container">
+        <h3>Alert List</h3>
+        <p>A list of all of the Crisis Alerts that have been generated.</p>
 
-      <!-- 
-      The alerts are displayed as a nested unordered list. (<ul> with another <ul>)
-      So, the <li> elements in the outer list are each individual alert, 
-      and the <li> elements in the inner list are the details of that alert. (name, handed, date)
-       -->
-      <div class="alertDivContainer">
+        <a class="alertRefreshButton" href="/alertDashboard">Refresh</a>
 
-        <ul class = "alertList">
-      
-          <% alerts.forEach(alert => { %>
-            <li class="alertElement">
-              <ul class="alertDetails">
-                <li><p><b>Student's Name: </b><%= alert.name %></p></li>
-                <li><p><b>Handled: </b><%= alert.handled %></p></li>
-                <li><p><b>Date Triggered: </b><%= (alert.created_at).toLocaleString() %></p></li>
-              </ul>
-            </li>
-          <% }) %>
+        <!-- 
+        The alerts are displayed as a nested unordered list. (<ul> with another <ul>)
+        So, the <li> elements in the outer list are each individual alert, 
+        and the <li> elements in the inner list are the details of that alert. (name, handed, date)
+        -->
+        <div class="alertDivContainer">
+
+          <ul class = "alertList">
+        
+            <% alerts.forEach(alert => { %>
+              <li class="alertElement">
+                <ul class="alertDetails">
+                  <li><p><b>Student's Name: </b><%= alert.name %></p></li>
+                  <li class="<%= alert.handled ? 'alert-handled' : 'alert-unhandled' %>">
+                    <p><b>Handled: </b><%= alert.handled %></p>
+                  </li>
+                  <li><p><b>Date Triggered: </b><%= (alert.created_at).toLocaleString() %></p></li>
+                </ul>
+              </li>
+            <% }) %>
+            
+          </ul>
+
+        </div>
+      </div>
+
+<div class="container">
+        <form action="/alertDashboard" method="POST">
+          <h3>Send an outreach message to a student:</h3>
+
+          <label for="username">Student's username: </label><br>
+          <input id="to_user" type="text" name="to_user" placeholder="Username..." /><br>
+          <% if (errors && errors.to_user) { %>
+              <p class="error"><%= errors.to_user %></p>
+          <% } %>
           
-        </ul>
+          <br>
+          <label for="message">Outreach message: </label><br>
+          <textarea id="message_text" name="message_text" rows="5" cols="85" placeholder="Enter your message here..."></textarea><br>
+          <% if (errors && errors.message_text) { %>
+              <p class="error"><%= errors.message_text %></p>
+          <% } %>
 
+          <button type="submit">Send Message</button>
+          <% if (success) { %>
+              <p class="success"> Message sent. </p>
+          <% } %>
+
+        </form>
+        </div>
       </div>
       
 
