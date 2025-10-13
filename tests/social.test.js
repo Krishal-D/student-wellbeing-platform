@@ -43,7 +43,7 @@ describe('tests for the show() function', () => {
         const req = {user: {userId: 1} } ;
         const res = {render: mock.fn() };
         
-        // mock database to return 2 messages
+        // mock database to return 1 message
         mock.method(pool, 'query', async (sql, params) => {
             if (sql.startsWith('SELECT users.name, message.message_text')) {
                 return { 

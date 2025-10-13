@@ -34,8 +34,8 @@ describe('tests for the show() function', () => {
 
     });
 
-    test('messages from database get added to res.render() when its called', async() => {
-        const req = {user: {userId: 1} } ;
+    test('alerts from database get added to res.render() when its called', async() => {
+        const req = {user: {userId: 3} } ;
         const res = {render: mock.fn() };
         
         // mock database to return 2 messages
