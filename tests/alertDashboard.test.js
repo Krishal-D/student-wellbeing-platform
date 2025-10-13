@@ -5,16 +5,15 @@ import { submit, show } from '../controllers/alertDashboard.js';
 
 
 
-
 describe('tests for the show() function', () => {
-    // mock database
-    mock.method(pool, 'query', async (sql, params) => {
-        if (sql.startsWith('SELECT alert.id, alert.handled')) {
-            return { rows: [], };
-        }
-    });
-
     test('Should render the Alert Dashboard Page', async() => { 
+        // mock database
+        mock.method(pool, 'query', async (sql, params) => {
+            if (sql.startsWith('SELECT alert.id')) {
+                return { rows: [], };
+            }
+        });
+
         const req = {user: {userId: 3} } ;
         const res = {render: mock.fn() };
 
@@ -34,32 +33,93 @@ describe('tests for the show() function', () => {
 
     });
 
-    test('alerts from database get added to res.render() when its called', async() => {
-        const req = {user: {userId: 3} } ;
-        const res = {render: mock.fn() };
-        
-        // mock database to return 2 messages
+    test('an alert from DB gets passed to res.render()', async() => {
+        // mock database to return 1 alert
         mock.method(pool, 'query', async (sql, params) => {
-            if (sql.startsWith('SELECT users.name, message.message_text')) {
+            if (sql.startsWith('SELECT alert.id')) {
                 return { 
-                    rows: [ { name: "Testuser1", message_text: "msg1", created_at: new Date() } ]
+                    rows: [ { id: 1, user_id: 2, handled: false, created_at: new Date() } ]
                 };
             }
 
         });
 
+        const req = {user: {userId: 3} } ;
+        const res = {render: mock.fn() };
+
         await show(req, res);
 
-        const name = res.render.mock.calls[0].arguments[1].inboxMessages[0].name;
-        const message = res.render.mock.calls[0].arguments[1].inboxMessages[0].message_text;
-        const date = res.render.mock.calls[0].arguments[1].inboxMessages[0].created_at;
+        const id = res.render.mock.calls[0].arguments[1].alerts[0].id;
+        const user_id = res.render.mock.calls[0].arguments[1].alerts[0].user_id;
+        const handled = res.render.mock.calls[0].arguments[1].alerts[0].handled;
+        const date = res.render.mock.calls[0].arguments[1].alerts[0].created_at;
 
-        assert.strictEqual(name, 'Testuser1');
-        assert.strictEqual(message, 'msg1');
+        assert.strictEqual(id, 1);
+        assert.strictEqual(user_id, 2);
+        assert.strictEqual(handled, false);
         assert.notStrictEqual(date, 'Invalid Date');  
-        // ^ Not having a date will result in "invalid date", not  empty like the others 
-
+        // ^ Not having a date will result in "invalid date"
 
     });
+
+});
+
+
+describe('tests for the submit() function', () => {
+
+    test('empty table results in res.render() with User Not Found message', async () => {
+        const req = {body: { to_user: 'John', message_text: 'msg' }, user: {userId: 1} };
+        const res = {status: mock.fn(() => res), send: mock.fn() , render: mock.fn() };
+        
+        // mock database to return empty table (no user found)
+        mock.method(pool, 'query', async (sql, params) => {
+            if (sql.startsWith('SELECT id, name FROM users WHERE name =')) {
+                return { rows: [] };
+            }
+            if (sql.startsWith('INSERT INTO message')) {
+                return { rowCount: 1 };
+            }
+        });
+
+        await submit(req, res);
+        
+        assert.strictEqual(res.render.mock.calls[0].arguments[1].errors.to_user, 'User not found in database.');
+        
+    });
+
+    test('no errors and user found results in res.render() call with \'success\'', async () => {
+        const req = {body: { to_user: 'Testuser2', message_text: 'msg' }, user: {userId: 1} };
+        const res = {status: mock.fn(() => res), send: mock.fn() , render: mock.fn() };
+        
+        // mock database to return table with 1 user (user found)
+        mock.method(pool, 'query', async (sql, params) => {
+            if (sql.startsWith('SELECT id, name FROM users WHERE name =')) {
+                return { rows: [ { id: 2, name: 'Testuser2' } ] };
+            }
+            if (sql.startsWith('INSERT INTO message')) {
+                return { rowCount: 1 };
+            }
+        });
+
+        await submit(req, res);
+
+        // contains the errors. eg:   to_user: "User not found in database." 
+        const errors = res.render.mock.calls[0].arguments[1].errors
+
+        assert.strictEqual(Object.keys(errors).length, 0);  // errors is empty (no errors)
+        assert.strictEqual(res.render.mock.calls[0].arguments[1].success, true);
+    });
+
+    test('Blank to_user and message_text form fields results in res.render() with 2 error messages', async () => {
+        const req = {body: { to_user: '', message_text: '' }, user: {userId: 1} };
+        const res = {status: mock.fn(() => res), send: mock.fn() , render: mock.fn() };
+
+        await submit(req, res);
+
+        assert.strictEqual(res.render.mock.calls[0].arguments[1].errors.to_user, 'No username entered.');
+        assert.strictEqual(res.render.mock.calls[0].arguments[1].errors.message_text, 'No message entered.');
+
+    });
+
 
 });
