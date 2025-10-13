@@ -4,7 +4,7 @@ Our project has a .env.example file than contains database details like the data
 For the website to correctly run, either create a .env file and copy the contents of .env.example into it.
 Or, rename .env.example to .env
 
-
+-----------------
 
 
 
