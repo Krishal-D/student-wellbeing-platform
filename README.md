@@ -4,8 +4,9 @@ Our project has a .env.example file than contains database details like the data
 For the website to correctly run, either create a .env file and copy the contents of .env.example into it.
 Or, rename .env.example to .env
 
------------------
-
+---
+---
+---
 
 
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/GoatNcQr)
