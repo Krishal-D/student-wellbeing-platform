@@ -1,26 +1,20 @@
 import {test, describe, mock} from 'node:test';
 import assert from 'node:assert/strict';
 import { pool } from '../config/db.js';
-import { submit, show } from '../controllers/social.js';
+import { submit, show } from '../controllers/alertDashboard.js';
 
-// mock basic database
-mock.method(pool, 'query', async (sql, params) => {
-    if (sql.startsWith('SELECT id, name FROM users WHERE name =')) {
-        return { 
-            rows: [],
-        };
-    }
-    if (sql.startsWith('INSERT INTO message')) {
-        return { rowCount: 1 };
-    }
-    return {rows: [] };
-});
 
 
 describe('tests for the show() function', () => {
+    test('Should render the Alert Dashboard Page', async() => { 
+        // mock database
+        mock.method(pool, 'query', async (sql, params) => {
+            if (sql.startsWith('SELECT alert.id')) {
+                return { rows: [], };
+            }
+        });
 
-    test('Should render the Social Networking Page', async() => { 
-        const req = {user: {userId: 1} } ;
+        const req = {user: {userId: 3} } ;
         const res = {render: mock.fn() };
 
         await show(req, res);
@@ -29,8 +23,8 @@ describe('tests for the show() function', () => {
 
         // check the correct arguments passed to res.render()
         assert.deepEqual(args, {
-            title: 'Social Networking',
-            inboxMessages: [],
+            title: 'Alert Dashboard',
+            alerts: [],
             errors : {},
             success : false
         });
@@ -39,31 +33,32 @@ describe('tests for the show() function', () => {
 
     });
 
-    test('messages from database get added to res.render() when its called', async() => {
-        const req = {user: {userId: 1} } ;
-        const res = {render: mock.fn() };
-        
-        // mock database to return 1 message
+    test('an alert from DB gets passed to res.render()', async() => {
+        // mock database to return 1 alert
         mock.method(pool, 'query', async (sql, params) => {
-            if (sql.startsWith('SELECT users.name, message.message_text')) {
+            if (sql.startsWith('SELECT alert.id')) {
                 return { 
-                    rows: [ { name: "Testuser1", message_text: "msg1", created_at: new Date() } ]
+                    rows: [ { id: 1, user_id: 2, handled: false, created_at: new Date() } ]
                 };
             }
 
         });
 
+        const req = {user: {userId: 3} } ;
+        const res = {render: mock.fn() };
+
         await show(req, res);
 
-        const name = res.render.mock.calls[0].arguments[1].inboxMessages[0].name;
-        const message = res.render.mock.calls[0].arguments[1].inboxMessages[0].message_text;
-        const date = res.render.mock.calls[0].arguments[1].inboxMessages[0].created_at;
+        const id = res.render.mock.calls[0].arguments[1].alerts[0].id;
+        const user_id = res.render.mock.calls[0].arguments[1].alerts[0].user_id;
+        const handled = res.render.mock.calls[0].arguments[1].alerts[0].handled;
+        const date = res.render.mock.calls[0].arguments[1].alerts[0].created_at;
 
-        assert.strictEqual(name, 'Testuser1');
-        assert.strictEqual(message, 'msg1');
+        assert.strictEqual(id, 1);
+        assert.strictEqual(user_id, 2);
+        assert.strictEqual(handled, false);
         assert.notStrictEqual(date, 'Invalid Date');  
-        // ^ Not having a date will result in "invalid date", not  empty like the others 
-
+        // ^ Not having a date will result in "invalid date"
 
     });
 
@@ -125,5 +120,6 @@ describe('tests for the submit() function', () => {
         assert.strictEqual(res.render.mock.calls[0].arguments[1].errors.message_text, 'No message entered.');
 
     });
+
 
 });

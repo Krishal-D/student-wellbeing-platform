@@ -1,5 +1,5 @@
 div.alertDivContainer {
-    border: 2px solid #444444; 
+    border: 1px solid #444444; 
     margin-top: 5px;
     margin-bottom: 20px;
     margin-left: 5px;
@@ -14,10 +14,12 @@ div.alertDivContainer {
 
 ul.alertList {
     list-style-type: none; /* No bullet-points */
+    padding-left: 15px  ;
 }
 
 li.alertElement {
     border: 1px solid #000000;
+    margin-top: 5px;
 }
 
 /* Change alert background colour on mouse-hover */
@@ -26,6 +28,46 @@ li.alertElement:hover {
 } 
 
 ul.alertDetails {
-    list-style-type: none;  /* No bullet-points */
+    list-style-type: none;  /* No bullet-points */  
     padding-left: 5px;
+}
+
+div.container {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+}
+
+p.error {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+p.success {
+    color: rgb(0, 128, 255);
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+a.alertRefreshButton {
+    display: inline-block;
+    margin: 10px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    background: #3498db;
+    color: #fff;
+    text-decoration: none; /* Remove underline */
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+.alert-handled {
+    color: blue;
+}
+.alert-unhandled {
+    color: red;
 }
