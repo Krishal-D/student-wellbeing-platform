@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/profile.css">
+</head>
+<body>
+    <%- include('./partials/header') %>
+    
+    <main class="profile-container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <h2>My Profile</h2>
+            </div>
+            
+            <div class="profile-content">
+                <div class="profile-field">
+                    <span class="field-label">Student Name:</span>
+                    <span class="field-value"><%= studentName %></span>
+                </div>
+                
+                <div class="profile-field">
+                    <span class="field-label">Student Email:</span>
+                    <span class="field-value"><%= studentEmail %></span>
+                </div>
+                
+                <div class="profile-field">
+                    <span class="field-label">User ID:</span>
+                    <span class="field-value">#<%= user.userId %></span>
+                </div>
+                
+                <div class="profile-field">
+                    <span class="field-label">Account Type:</span>
+                    <span class="field-value">
+                        <span class="<%= user.userType === 'admin' ? 'admin-badge' : 'user-badge' %>">
+                            <%= user.userType.charAt(0).toUpperCase() + user.userType.slice(1) %>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="profile-actions">
+                <a href="/" class="btn btn-primary">Back to Home</a>
+                <a href="/logout" class="btn btn-secondary">Logout</a>
+            </div>
+        </div>
+    </main>
+    
+    <%- include('./partials/footer') %>
+</body>
+</html>
