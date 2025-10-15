@@ -127,3 +127,58 @@ describe('tests for the submit() function', () => {
     });
 
 });
+
+describe('tests for catch statements', () => {
+    test('show() function handles database errors', async () => {
+        // mock database
+        mock.method(pool, 'query', async (sql, params) => {
+            throw new Error('Database Error');
+        });
+
+        const req = {user: {userId: 1} } ;
+        const res = {render: mock.fn(), status: mock.fn(() => res), send: mock.fn() };
+
+        await show(req, res);
+        
+        assert.strictEqual(res.status.mock.callCount(), 1);
+        assert.strictEqual(res.send.mock.callCount(), 1);
+        assert.strictEqual(res.status.mock.calls[0].arguments[0], 500);
+        assert.strictEqual(res.send.mock.calls[0].arguments[0], 'Database error when getting messages from DB for inbox');
+    });
+
+    test('submit() function handles database errors (1st catch statement)', async () => {
+        // mock database 
+        mock.method(pool, 'query', async (sql, params) => {
+            throw new Error('Database Error');
+        });
+
+        const req = {user: {userId: 1}, body: { to_user: "user5"} };
+        const res = {status: mock.fn(() => res), send: mock.fn() , render: mock.fn() };
+
+        await submit(req, res);
+        
+        /* console.log("args: ", res.render.mock.calls[0].arguments); */
+        
+        assert.strictEqual(res.render.mock.callCount(), 1);
+        assert.strictEqual(res.render.mock.calls[0].arguments[1].errors.to_user, 'The username does not exist.');
+        /* this catch statement doesn't use res.status.send() */
+    });
+
+    test('submit() function handles database errors (2nd catch statement)', async () => {
+        // mock database 
+        mock.method(pool, 'query', async (sql, params) => {
+            throw new Error('Database Error');
+        });
+
+        // mock the console.error to test if it ran
+        const consoleErrorMock = mock.method(console, 'error');
+
+        const req = {user: {userId: 1}, body: { to_user: "user5", message_text: "msg"}, errors: {} };
+        const res = {status: mock.fn(() => res), send: mock.fn() , render: mock.fn() };
+
+        await submit(req, res);
+        assert.strictEqual(consoleErrorMock.mock.callCount(), 1);        
+
+    });
+
+});

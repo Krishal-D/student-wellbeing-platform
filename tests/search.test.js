@@ -106,9 +106,3 @@ describe('Search Feature Tests', () => {
   });
 
 });
-
-describe('catch statement works correctly', () => {
-  test('should handle errors by rendering page correctly', async () => {
-    
-  });
-});
