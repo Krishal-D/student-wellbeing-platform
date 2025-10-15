@@ -129,7 +129,6 @@ describe('tests for the submit() function', () => {
         await submit(req, res);
 
         assert.strictEqual(res.render.mock.calls[0].arguments[1].errors.message_text, 'Message must not exceed 1000 characters');
-
     });
 
 });
