@@ -6,7 +6,7 @@ Or, rename .env.example to .env
 
 ## Migrations script
 SQL files are located in the `migrations` folder.
-Run both:
+You need to run both:
 
 `node config/migrationRunner.js destroy`
 
