@@ -121,5 +121,52 @@ describe('tests for the submit() function', () => {
 
     });
 
+    test('message with > 1000 characters results in res.render() with correct error message', async () => {
+        const longMessage = 'a'*1001;
+        const req = {body: { to_user: 'Testuser2', message_text: longMessage }, user: {userId: 1} };
+        const res = {status: mock.fn(() => res), send: mock.fn() , render: mock.fn() };
 
+        await submit(req, res);
+
+        assert.strictEqual(res.render.mock.calls[0].arguments[1].errors.message_text, 'Message must not exceed 1000 characters');
+
+    });
+
+});
+
+describe('tests for catch statements', () => {
+    test('show() function handles database errors', async () => {
+        // mock database to return table with 1 user (user found)
+        mock.method(pool, 'query', async (sql, params) => {
+            throw new Error('Database Error');
+        });
+
+        const req = {user: {userId: 1} } ;
+        const res = {render: mock.fn(), status: mock.fn(() => res), send: mock.fn() };
+
+        await show(req, res);
+        
+        assert.strictEqual(res.status.mock.callCount(), 1);
+        assert.strictEqual(res.send.mock.callCount(), 1);
+        assert.strictEqual(res.status.mock.calls[0].arguments[0], 500);
+        assert.strictEqual(res.send.mock.calls[0].arguments[0], 'Database error when getting alerts from database.');
+    });
+
+    test('submit() function handles database errors', async () => {
+        // mock database to return table with 1 user (user found)
+        mock.method(pool, 'query', async (sql, params) => {
+            throw new Error('Database Error');
+        });
+
+        const req = {user: {userId: 1}, body: { to_user: "user5"} };
+        const res = {status: mock.fn(() => res), send: mock.fn() , render: mock.fn() };
+
+        await submit(req, res);
+        
+        /* console.log("args: ", res.render.mock.calls[0].arguments); */
+        
+        assert.strictEqual(res.render.mock.callCount(), 1);
+        assert.strictEqual(res.render.mock.calls[0].arguments[1].errors.to_user, 'The username does not exist.');
+        /* this catch statement doesn't use res.status.send() */
+    });
 });

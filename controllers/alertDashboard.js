@@ -60,7 +60,7 @@ export async function submit(req, res, next) {
   if (!message_text) {
     errors.message_text = 'No message entered.';
   } else if (message_text.length > 1000) {
-    errors.message_text = 'Message not exceed 1000 characters';
+    errors.message_text = 'Message must not exceed 1000 characters';
   }
 
   // if there are errors: render page with error messages under form elements
