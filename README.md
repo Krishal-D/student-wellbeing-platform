@@ -1,15 +1,19 @@
 # README file
 ## .env File
-Our project has a .env.example file than contains database details like the database username and password.
+Our project has a ".env.example" file than contains database details like the database username and password.
 For the website to correctly run, either create a .env file and copy the contents of .env.example into it.
 Or, rename .env.example to .env
 
 ## Migrations script
 SQL files are located in the `migrations` folder.
 Run both:
+
 `node config/migrationRunner.js destroy`
+
 and
+
 `node config/migrationRunner.js migrate`
+
 each time to delete and recreate the database.
 
 ## Testing
