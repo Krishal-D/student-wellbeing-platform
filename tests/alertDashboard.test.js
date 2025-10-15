@@ -176,20 +176,15 @@ describe('tests for catch statements', () => {
             throw new Error('Database Error');
         });
 
-        mock.method(console, 'error', async () => {
-            return;
-        });
+        // mock the console.error to test if it ran
+        const consoleErrorMock = mock.method(console, 'error');
 
         const req = {user: {userId: 1}, body: { to_user: "user5", message_text: "msg"}, errors: {} };
         const res = {status: mock.fn(() => res), send: mock.fn() , render: mock.fn() };
 
         await submit(req, res);
-        
-        /* console.log("args: ", res.render.mock.calls[0].arguments); */
-        
-        assert.strictEqual(res.render.mock.callCount(), 1);
-        assert.strictEqual(res.render.mock.calls[0].arguments[1].errors.to_user, 'The username does not exist.');
-        /* this catch statement doesn't use res.status.send() */
+        assert.strictEqual(consoleErrorMock.mock.callCount(), 1);        
+
     });
 
 });

@@ -94,6 +94,7 @@ export async function submit(req, res, next) {
       return res.render('alertDashboard', { title: 'Alert Dashboard', alerts, errors: errors, success : true });
       
     } catch (err) {
+      console.log("#####################################");
       console.error('Database error when entering message into database, or when updated \'handled\' attribute of alert', err);
     }
 
