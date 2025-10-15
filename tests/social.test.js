@@ -74,7 +74,7 @@ describe('tests for the submit() function', () => {
 
     test('empty table results in res.render() with User Not Found message', async () => {
         const req = {body: { to_user: 'John', message_text: 'msg' }, user: {userId: 1} };
-        const res = {status: mock.fn(() => res), send: mock.fn() , render: mock.fn() };
+        const res = {send: mock.fn() , render: mock.fn() };
         
         // mock database to return empty table (no user found)
         mock.method(pool, 'query', async (sql, params) => {
@@ -94,7 +94,7 @@ describe('tests for the submit() function', () => {
 
     test('no errors and user found results in res.render() call with \'success\'', async () => {
         const req = {body: { to_user: 'Testuser2', message_text: 'msg' }, user: {userId: 1} };
-        const res = {status: mock.fn(() => res), send: mock.fn() , render: mock.fn() };
+        const res = {send: mock.fn() , render: mock.fn() };
         
         // mock database to return table with 1 user (user found)
         mock.method(pool, 'query', async (sql, params) => {
@@ -117,7 +117,7 @@ describe('tests for the submit() function', () => {
 
     test('Blank to_user and message_text form fields results in res.render() with 2 error messages', async () => {
         const req = {body: { to_user: '', message_text: '' }, user: {userId: 1} };
-        const res = {status: mock.fn(() => res), send: mock.fn() , render: mock.fn() };
+        const res = { send: mock.fn() , render: mock.fn() };
 
         await submit(req, res);
 
@@ -153,7 +153,7 @@ describe('tests for catch statements', () => {
         });
 
         const req = {user: {userId: 1}, body: { to_user: "user5"} };
-        const res = {status: mock.fn(() => res), send: mock.fn() , render: mock.fn() };
+        const res = { send: mock.fn() , render: mock.fn() };
 
         await submit(req, res);
         
@@ -174,7 +174,7 @@ describe('tests for catch statements', () => {
         const consoleErrorMock = mock.method(console, 'error');
 
         const req = {user: {userId: 1}, body: { to_user: "user5", message_text: "msg"}, errors: {} };
-        const res = {status: mock.fn(() => res), send: mock.fn() , render: mock.fn() };
+        const res = {send: mock.fn() , render: mock.fn() };
 
         await submit(req, res);
         assert.strictEqual(consoleErrorMock.mock.callCount(), 1);        
