@@ -90,3 +90,56 @@ describe ('Mood Feature Tests', () => {
         });
     });
 });
+
+describe('Different mood scores result in different messages passed to res.render()', () => {
+    test('mood score 1', async () => {
+        const req = { body: { mood_score: 1, notes: 'note' }, user: {userId: 1} };
+        const res = { render: mock.fn() };
+
+        await submit(req, res);
+
+        const message = res.render.mock.calls[0].arguments[1].message;
+        assert.strictEqual(message, "😢 It seems like you are feeling a bit off today. Reach out to someone close might bring some comfort.");
+    });
+
+    test('mood score 2', async () => {
+        const req = { body: { mood_score: 2, notes: 'note' }, user: {userId: 1} };
+        const res = { render: mock.fn() };
+
+        await submit(req, res);
+
+        const message = res.render.mock.calls[0].arguments[1].message;
+        assert.strictEqual(message, "🙁 It seems like you are feeling a little low today. Step back and spend time doing something that help lift up your mood.");
+    });
+
+    test('mood score 3', async () => {
+        const req = { body: { mood_score: 3, notes: 'note' }, user: {userId: 1} };
+        const res = { render: mock.fn() };
+
+        await submit(req, res);
+
+        const message = res.render.mock.calls[0].arguments[1].message;
+        assert.strictEqual(message, "😐 Feeling neutral today - hold onto that balance and move gently through your moments.");
+    });
+
+    test('mood score 4', async () => {
+        const req = { body: { mood_score: 4, notes: 'note' }, user: {userId: 1} };
+        const res = { render: mock.fn() };
+
+        await submit(req, res);
+
+        const message = res.render.mock.calls[0].arguments[1].message;
+        assert.strictEqual(message, "😀 It is lovely to see you in such a good mood today. Keep holding onto that positive energy.");
+    });
+
+    test('mood score 5', async () => {
+        const req = { body: { mood_score: 5, notes: 'note' }, user: {userId: 1} };
+        const res = { render: mock.fn() };
+
+        await submit(req, res);
+
+        const message = res.render.mock.calls[0].arguments[1].message;
+        assert.strictEqual(message, "😄 It is wonderful to see you in such high spirits today. Keep that joy flowing.");
+    });
+
+});
