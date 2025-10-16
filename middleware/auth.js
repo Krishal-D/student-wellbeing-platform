@@ -6,7 +6,7 @@ if (!JWT_SECRET) {
 
 function normalize(userLike) {
   if (!userLike) return null;
-  // support either JWT payload fields or legacy cookie fields
+  // support JWT payload or legacy cookie fields
   const userId = userLike.userId ?? userLike.id;
   const userName = userLike.userName ?? userLike.name;
   const userType = userLike.userType ?? userLike.role ?? 'user';
@@ -16,26 +16,20 @@ function normalize(userLike) {
 }
 
 function getUserFromCookies(req, res) {
-  // Prefer JWT 'token' cookie
+  // prefer JWT 'token' cookie
   const token = req.cookies.token;
   if (token) {
     try {
       const payload = jwt.verify(token, JWT_SECRET);
       return normalize(payload);
     } catch (e) {
-      // bad token, clear it
+      // clear bad token
       res.clearCookie('token');
     }
   }
-  // Fallback: legacy 'user' cookie
-  const userCookie = req.cookies.user;
-  if (userCookie) {
-    try {
-      const parsed = JSON.parse(userCookie);
-      return normalize(parsed);
-    } catch (e) {
-      res.clearCookie('user');
-    }
+  // clear any legacy cookie if present, but do not use it for auth
+  if (req.cookies.user) {
+    res.clearCookie('user');
   }
   return null;
 }
@@ -43,7 +37,7 @@ function getUserFromCookies(req, res) {
 export function requireAuth(req, res, next) {
   const user = getUserFromCookies(req, res);
 
-  // prevent caching of protected pages
+  // no cache for protected pages
   res.set('Cache-Control', 'no-store');
 
   if (!user) {
@@ -57,7 +51,7 @@ export function requireAuth(req, res, next) {
 export function requireAdmin(req, res, next) {
   const user = getUserFromCookies(req, res);
 
-  // prevent caching for admin pages as well
+  // no cache for admin pages
   res.set('Cache-Control', 'no-store');
 
   if (!user || user.userType !== 'admin') {
