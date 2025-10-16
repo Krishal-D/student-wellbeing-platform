@@ -6,6 +6,7 @@ export async function show(req, res, next){
 
 export async function submit(req, res, next){
     try{
+        
         const {mood_score, notes} = req.body;
 
         // validation for the mood score

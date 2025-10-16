@@ -1,7 +1,9 @@
 import {pool} from '../config/db.js';
 
 export async function show(req, res, next){
+
     try{
+
         // get the userId from the middleware
         const user_id = req.user.userId;
 
@@ -20,18 +22,22 @@ export async function show(req, res, next){
                 badge_name = 'Gold Achiever';
                 icon = '🥇';
             } 
+
             else if (sumPoints >= 200) {
                 badge_name = 'Silver Achiever';
                 icon = '🥈';
             }
+
             else if (sumPoints >= 100) {
                 badge_name = 'Bronze Achiever';
                 icon = '🥉';
+            
             } else {
                 badge_name = 'Keep Going!';
                 icon = '🏅';
             }
-                
+            
+            
         // get all gamification history for the user
         const result = await pool.query(
             'SELECT id, points, badge_name, icon, date_earned FROM gamification WHERE user_id = $1 ORDER BY date_earned DESC',
