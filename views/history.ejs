@@ -39,7 +39,7 @@
                     <td>M<%= mood.id %></td>
                     <td><%= mood.mood_score %></td>
                     <td><%= mood.notes %></td>
-                    <td><%= new Date (mood.created_at).toLocaleString() %></td>
+                    <td><%= (mood.created_at).toLocaleString() %></td>
                 </tr>
                 <% }) %>
               <% } %>
