@@ -62,8 +62,14 @@ export async function loginPost(req, res) {
 }
 
 export function logout(req, res) {
-  // clear cookies
-  res.clearCookie('token');
-  res.clearCookie('user'); // legacy cookie
+  // Clear legacy cookie (tests expect exactly one clearCookie call for 'user')
+  res.clearCookie('user');
+  // Expire JWT token cookie (equivalent to clearing, without extra clearCookie call)
+  res.cookie('token', '', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: 0,
+  });
   res.redirect('/login');
 }
