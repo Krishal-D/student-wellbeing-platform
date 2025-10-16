@@ -2,6 +2,11 @@ import { pool } from '../config/db.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is required');
+}
+
 export function loginView(req, res) {
   res.render('login', { error: null, title: 'Login' });
 }
@@ -31,13 +36,13 @@ export async function loginPost(req, res) {
       return res.render('login', { error: 'Invalid credentials', title: 'Login' });
     }
     
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com';
-  const userRole = (user && user.email === adminEmail) ? 'admin' : 'user';
+  const adminEmail = process.env.ADMIN_EMAIL; // no fallback to avoid hardcoded admin
+  const userRole = (adminEmail && user && user.email === adminEmail) ? 'admin' : 'user';
     
     // Issue JWT and set as httpOnly cookie
     const token = jwt.sign(
       { userId: user.id, userName: user.name, email: user.email, userType: userRole },
-      process.env.JWT_SECRET || 'dev-secret',
+      JWT_SECRET,
       { expiresIn: '24h' }
     );
 
