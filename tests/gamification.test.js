@@ -132,7 +132,7 @@ describe ('Gamification Feature Tests', () => {
     });
 });
 
-// error handling
+    // error handling
     describe('Gamification error handling', () => {
     test('Should handle database error gracefully', async () => {
         pool.query.mock.mockImplementationOnce(async() => {
@@ -148,6 +148,72 @@ describe ('Gamification Feature Tests', () => {
             assert.strictEqual(res.send.mock.callCount(), 1);
             assert.strictEqual(res.status.mock.calls[0].arguments[0], 500);
             assert.strictEqual(res.send.mock.calls[0].arguments[0], 'Server error');
+        });
+    
+    // booundary conditions for badges
+    test('Should assign correct badge exactly at boundary points', async() => { 
+        
+        const thresholds = [
+            {points: 100, badge: 'Bronze Achiever', icon: '🥉'},
+            {points: 200, badge: 'Silver Achiever', icon: '🥈'},
+            {points: 300, badge: 'Gold Achiever', icon: '🥇'},
+        ];
+        
+        for (const { points, badge, icon} of thresholds) {
+            pool.query.mock.mockImplementation(async (sql) => {
+                if (sql.startsWith('SELECT COALESCE')) return { rows: [{ sum_points: points }] };
+                if (sql.startsWith('SELECT id, points')) return { rows: [{ id: 1, points: 10, date_earned: new Date() }] };
+            });
+            
+            const req ={ user: {userId: 7 } };
+            const res = { render: mock.fn() };
+            
+            await show(req, res);
+            const data = res.render.mock.calls[0].arguments[1];
+
+            assert.strictEqual(data.badge_name, badge);
+            assert.strictEqual(data.icon, icon);
+
+        }
+        });
+
+    // test rendering with multiple records
+    test('Should handle multiple progress records correctly', async() => { 
+        
+        const thresholds = [
+            {points: 100, badge: 'Bronze Achiever', icon: '🥉'},
+            {points: 200, badge: 'Silver Achiever', icon: '🥈'},
+            {points: 300, badge: 'Gold Achiever', icon: '🥇'},
+        ];
+        
+        for (const { points, badge, icon} of thresholds) {
+            pool.query.mock.mockImplementation(async (sql) => {
+                if (sql.startsWith('SELECT COALESCE')) return { rows: [{ sum_points: 150 }] };
+                if (sql.startsWith('SELECT id, points')) {
+                    
+                    return {
+                        rows: [
+                            { id: 1, points: 10, date_earned: new Date() },
+                            { id: 2, points: 20, date_earned: new Date() },
+                            { id: 3, points: 30, date_earned: new Date() },
+                            { id: 4, points: 40, date_earned: new Date() },
+                            { id: 5, points: 50, date_earned: new Date() },
+                        ],
+                    };
+                    
+                }
+            });
+            
+            const req ={ user: {userId: 8 } };
+            const res = { render: mock.fn() };
+            
+            await show(req, res);
+            const data = res.render.mock.calls[0].arguments[1];
+
+            assert.ok(Array.isArray(data.progress));
+            assert.strictEqual(data.progress.length, 5);
+
+        }
         });
     });
 });
