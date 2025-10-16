@@ -60,7 +60,7 @@ export async function submit(req, res, next) {
   if (!message_text) {
     errors.message_text = 'No message entered.';
   } else if (message_text.length > 1000) {
-    errors.message_text = 'Message not exceed 1000 characters';
+    errors.message_text = 'Message must not exceed 1000 characters';
   }
 
   // if there are errors: render page with error messages under form elements
@@ -94,6 +94,7 @@ export async function submit(req, res, next) {
       return res.render('alertDashboard', { title: 'Alert Dashboard', alerts, errors: errors, success : true });
       
     } catch (err) {
+      console.log("#####################################");
       console.error('Database error when entering message into database, or when updated \'handled\' attribute of alert', err);
     }
 
