@@ -23,7 +23,7 @@ export async function loginPost(req, res) {
       return res.render('login', { error: 'Invalid credentials', title: 'Login' });
     }
     
-    // Validate password (support hashed and legacy plaintext for compatibility)
+    // check password (supports hashed and legacy)
     let isValid = false;
     try {
       isValid = await bcrypt.compare(password, user.password);
@@ -36,10 +36,10 @@ export async function loginPost(req, res) {
       return res.render('login', { error: 'Invalid credentials', title: 'Login' });
     }
     
-  const adminEmail = process.env.ADMIN_EMAIL; // no fallback to avoid hardcoded admin
+  const adminEmail = process.env.ADMIN_EMAIL;
   const userRole = (adminEmail && user && user.email === adminEmail) ? 'admin' : 'user';
     
-    // Issue JWT and set as httpOnly cookie
+    // set JWT cookie
     const token = jwt.sign(
       { userId: user.id, userName: user.name, email: user.email, userType: userRole },
       JWT_SECRET,
@@ -49,11 +49,10 @@ export async function loginPost(req, res) {
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 24 * 60 * 60 * 1000
+      sameSite: 'lax'
     });
     
-    // redirect to home
+  // redirect to home
     return res.redirect('/');
     
   } catch (err) {
@@ -63,8 +62,8 @@ export async function loginPost(req, res) {
 }
 
 export function logout(req, res) {
-  // clear cookie
+  // clear cookies
   res.clearCookie('token');
-  res.clearCookie('user'); // legacy cleanup
+  res.clearCookie('user'); // legacy cookie
   res.redirect('/login');
 }

@@ -38,9 +38,9 @@ export async function registerUser(req, res) {
     )
 
   const newUser = insert.rows[0];
-  console.log('✅ New user registered:', { name, email });
+  console.log('New user registered:', { name, email });
 
-    // Auto-login with JWT
+    // auto-login with JWT
     const adminEmail = process.env.ADMIN_EMAIL;
     const userRole = (adminEmail && newUser.email === adminEmail) ? 'admin' : 'user';
     const token = jwt.sign(
@@ -52,8 +52,7 @@ export async function registerUser(req, res) {
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 24 * 60 * 60 * 1000
+      sameSite: 'lax'
     });
 
     res.redirect('/');
