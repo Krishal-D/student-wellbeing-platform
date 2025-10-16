@@ -1,6 +1,6 @@
 
 .container {
-  max-width: 750px; /* same width as your form */
+  max-width: 750px; 
   margin: 20px auto;
   padding: 20px;
   background: #fff;
@@ -20,7 +20,7 @@ h2 {
 
 .summary-box {
   border: 2px solid #3498db;
-  background: #ecf6fd; /* light blue background */
+  background: #ecf6fd; 
   border-radius: 8px;
   padding: 20px;
   margin: 20px 0;
