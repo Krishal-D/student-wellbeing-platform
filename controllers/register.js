@@ -1,4 +1,11 @@
 import { pool } from "../config/db.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is required');
+}
 
 
 export function showRegisterForm(req, res) {
@@ -23,25 +30,30 @@ export async function registerUser(req, res) {
       return res.status(400).send('Email already registered');
     }
 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const insert = await pool.query(
       'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id, name, email',
-      [name, email, password] // TODO: hash password with bcrypt
+      [name, email, hashedPassword]
     )
 
   const newUser = insert.rows[0];
   console.log('✅ New user registered:', { name, email });
 
-    // Auto-login: set auth cookie for the new user
-    const userData = {
-      userId: newUser.id,
-      userName: newUser.name,
-      userType: 'user',
-      email: newUser.email
-    };
+    // Auto-login with JWT
+    const adminEmail = process.env.ADMIN_EMAIL;
+    const userRole = (adminEmail && newUser.email === adminEmail) ? 'admin' : 'user';
+    const token = jwt.sign(
+      { userId: newUser.id, userName: newUser.name, email: newUser.email, userType: userRole },
+      JWT_SECRET,
+      { expiresIn: '24h' }
+    );
 
-    res.cookie('user', JSON.stringify(userData), {
-      maxAge: 24 * 60 * 60 * 1000,
-      httpOnly: true
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60 * 1000
     });
 
     res.redirect('/');
