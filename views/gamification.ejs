@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/gamification.css" />
+  </head>
+  <body>
+
+    <!-- Header HTML is in a separate file -->
+    <%- include("partials/header") %>
+
+    <main class="container">
+      <h2>My Wellbeing Progress</h2>
+
+      <section class = "summary-box">
+        <h3>Total Points: <%= totalPoints %> pts </h3>
+        <h4>Current Badge: <%= badge_name %> <%= icon %> </h4>
+      </section>
+
+        <div class="table-wrapper">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Points</th>
+                    <th>Date Earned</th>
+                </tr>
+            </thead>
+
+            <tbody>
+              <% if (progress.length === 0) {%>
+                <tr>
+                  <td colspan="5" class="empty-state">
+                    🏆No gamification data available. <a href="/mood">📝Start your first mood check-in to earn points.</a> 
+                  </td>
+                </tr>
+
+              <%} else { %>
+                <%progress.forEach(item => {%>
+                <tr>
+                    <td>M<%= item.id %></td>
+                    <td><%= item.points %></td>
+                    <td><%= (item.date_earned).toLocaleString() %></td>
+                </tr>
+                <% }) %>
+              <% } %>
+              
+            </tbody>
+
+        </table>
+        </div>
+        
+    </main>
+
+    <!-- Footer HTML is in a separate file -->
+    <%- include("partials/footer") %>
+
+  </body>
+</html>
