@@ -1,6 +1,6 @@
 div.alertDivContainer {
     border: 1px solid #444444; 
-    margin-top: 5px;
+    margin-top: 20px;
     margin-bottom: 20px;
     margin-left: 5px;
     margin-right: 50px;
@@ -24,7 +24,7 @@ li.alertElement {
 
 /* Change alert background colour on mouse-hover */
 li.alertElement:hover {
-    background-color: rgb(255, 230, 230);
+    background-color: rgb(232, 234, 254);
 } 
 
 ul.alertDetails {
@@ -33,9 +33,14 @@ ul.alertDetails {
 }
 
 div.container {
-    border: 1px solid black;
-    padding: 10px;
-    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    max-width: 750px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 p.error {
@@ -52,7 +57,7 @@ p.success {
 
 a.alertRefreshButton {
     display: inline-block;
-    margin: 10px;
+    margin-top: 10px;
     padding: 8px 16px;
     font-size: 14px;
     font-weight: bold;
@@ -63,6 +68,9 @@ a.alertRefreshButton {
     text-decoration: none; /* Remove underline */
     cursor: pointer;
     transition: background 0.2s ease-in-out;
+
+    align-self: flex-start; /* These two lines fixed a stretching issue */
+    width: auto;
 }
 
 .alert-handled {
@@ -71,3 +79,16 @@ a.alertRefreshButton {
 .alert-unhandled {
     color: red;
 }
+
+button {
+    margin-top: 15px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    background: #3498db;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+} 
