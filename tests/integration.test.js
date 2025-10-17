@@ -5,6 +5,7 @@ import { pool } from '../config/db.js';
 // Import key controllers
 import { show as alertShow } from '../controllers/alertDashboard.js';
 import { loginPost } from '../controllers/auth.js';
+import { show as gamificationShow } from '../controllers/gamification.js';
 import { show as historyShow } from '../controllers/history.js';
 import { submit as moodSubmit } from '../controllers/mood.js';
 import { registerUser } from '../controllers/register.js';
@@ -215,6 +216,49 @@ describe('Core Integration Tests', () => {
     
     pool.query = originalQuery;
   });
+
+  // =============================================================================
+  // GAMIFICATION TESTS
+  // =============================================================================
+  test('Gamification page should display user points and badge correctly', async () => {
+    const req = { user: { userId: 1 } };
+    const res = makeRes();
+
+    const originalQuery = pool.query;
+    pool.query = async (sql, params) => {
+      if (sql.includes('SELECT COALESCE(SUM(points), 0) AS sum_points')) {
+        // Return total points for Bronze badge (150 points)
+        return { rows: [{ sum_points: 150 }] };
+      }
+      if (sql.includes('SELECT id, points, badge_name, icon, date_earned')) {
+        // Return gamification history
+        return { 
+          rows: [
+            { id: 1, points: 50, badge_name: 'Bronze Achiever', icon: '🥉', date_earned: new Date('2024-01-01') },
+            { id: 2, points: 100, badge_name: 'Bronze Achiever', icon: '🥉', date_earned: new Date('2024-01-02') }
+          ]
+        };
+      }
+      return { rows: [] };
+    };
+
+    await gamificationShow(req, res);
+
+    assert.strictEqual(res.render.mock.callCount(), 1);
+    assert.strictEqual(res.render.mock.calls[0].arguments[0], 'gamification');
+    
+    const data = res.render.mock.calls[0].arguments[1];
+    assert.strictEqual(data.title, 'Gamification Page');
+    assert.strictEqual(data.totalPoints, 150);
+    assert.strictEqual(data.badge_name, 'Bronze Achiever');
+    assert.strictEqual(data.icon, '🥉');
+    assert.ok(Array.isArray(data.progress));
+    assert.strictEqual(data.progress.length, 2);
+    
+    pool.query = originalQuery;
+  });
+
+  
 
   // =============================================================================
   // ERROR HANDLING TEST
