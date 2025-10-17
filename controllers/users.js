@@ -17,9 +17,10 @@ export async function editUserForm(req, res) {
   const { id } = req.params;
   try {
     const { rows } = await pool.query("SELECT id, name, email FROM users WHERE id = $1 AND role <> 'admin'", [id]);
-    const user = rows[0];
-    if (!user) return res.redirect('/users?err=User not found or not editable');
-    return res.render('users_edit', { title: 'Edit User', user });
+    const editUser = rows[0];
+    if (!editUser) return res.redirect('/users?err=User not found or not editable');
+    const err = req.query.err || null;
+    return res.render('users_edit', { title: 'Edit User', editUser, err });
   } catch (e) {
     console.error('Error loading user:', e);
     return res.redirect('/users?err=Server error');
@@ -32,6 +33,9 @@ export async function updateUser(req, res) {
   if (!name) return res.redirect('/users?err=Name is required');
   if (password && password !== confirmPassword) {
     return res.redirect(`/users/${id}/edit?err=Passwords do not match`);
+  }
+  if (password && password.length < 6) {
+    return res.redirect(`/users/${id}/edit?err=Password must be at least 6 characters`);
   }
   try {
     const { rows } = await pool.query('SELECT role FROM users WHERE id = $1', [id]);

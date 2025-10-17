@@ -11,10 +11,14 @@
   <%- include("partials/header") %>
   <main class="container">
     <h2>Edit User</h2>
-    <form action="/users/<%= user.id %>/edit" method="post" class="form">
+    <% if (typeof err !== 'undefined' && err) { %>
+      <div class="alert error"><%= err %></div>
+    <% } %>
+    <% const target = (typeof editUser !== 'undefined' && editUser) ? editUser : user; %>
+    <form action="/users/<%= target.id %>/edit" method="post" class="form">
       <div class="form-row">
         <label for="name">Name</label>
-        <input id="name" name="name" type="text" value="<%= user.name %>" required />
+        <input id="name" name="name" type="text" value="<%= target.name %>" required />
       </div>
       <div class="form-row">
         <label for="password">New Password (optional)</label>
