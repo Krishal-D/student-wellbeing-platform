@@ -6,6 +6,7 @@ export async function show(req, res, next){
 
 export async function submit(req, res, next){
     try{
+        
         const {mood_score, notes} = req.body;
 
         // validation for the mood score
@@ -22,6 +23,12 @@ export async function submit(req, res, next){
             'INSERT INTO mood (user_id, mood_score, notes) VALUES ($1, $2, $3)',
             [user_id, mood_score, notes]
         ); 
+
+        // add points for mood tracking
+        await pool.query(
+            'INSERT INTO gamification (user_id, points, badge_name) VALUES ($1, $2, $3)',
+            [user_id, 15, 'Mood Check-In'] //adding 15 points each time
+        )
 
         console.log('✅Mood score received-appreciatte you checking in.', {mood_score});
         
@@ -47,7 +54,10 @@ export async function submit(req, res, next){
         }
 
         //  feedback with mood message
-        res.render('moodFeedback', {title: 'Mood Submitted Page', message: message});
+        res.render('moodFeedback', {
+            title: 'Mood Submitted Page', 
+            message: message
+        });
 
     } catch (err) {
         console.error('Database error: ', err);
