@@ -11,7 +11,7 @@ main.container {
 h2 {
     font-size: 24px;
     font-weight: bold;
-    color: #cc0101;
+    color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     margin-bottom: 20px;
 }
 
@@ -24,7 +24,7 @@ h2 {
 
 .message p {
     font-size: 18px;
-    color: #000000;
+    color: #764ba2;
 }
 
 .actions {
@@ -37,7 +37,7 @@ h2 {
 
 .actions .button {
     padding: 10px 20px;
-    background: #cc0101;
+    background: #3498db;
     color: #fff;
     font-weight: bold;
     border-radius: 5px;
@@ -45,5 +45,5 @@ h2 {
 }
 
 .actions .button:hover {
-    background: #a30000;
+    background: #2980b9;
 }
