@@ -1,0 +1,101 @@
+/* Simple Profile Page Styles */
+
+.profile-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.profile-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-header h2 {
+    color: #333;
+    margin: 0;
+}
+
+.profile-content {
+    margin-bottom: 2rem;
+}
+
+.profile-field {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.profile-field:last-child {
+    border-bottom: none;
+}
+
+.field-label {
+    font-weight: bold;
+    color: #555;
+}
+
+.field-value {
+    color: #333;
+}
+
+.user-badge,
+.admin-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.user-badge {
+    background: #007bff;
+    color: white;
+}
+
+.admin-badge {
+    background: #dc3545;
+    color: white;
+}
+
+.profile-actions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #545b62;
+}
