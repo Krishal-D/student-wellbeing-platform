@@ -12,6 +12,7 @@ import { alertDashboardRouter } from './routes/alertDashboard.js';
 import { usersRouter } from './routes/users.js';
 import { historyRouter } from './routes/history.js';
 import { authRouter } from './routes/auth.js';
+import { initAuth } from './controllers/auth.js';
 import { profileRouter } from './routes/profile.js';
 
 import { requireAuth, addUserToViews } from './middleware/auth.js';
@@ -25,6 +26,8 @@ export const codeTrace = debug('comp3028:server');
 // Start the app
 export const app = express();
 server.setup(app)
+// Kick off any auth bootstrap (e.g., ensure admin from env)
+initAuth();
 
 // register middleware
 app.use(cookieParser('your-secret-key-change-in-production')); 
