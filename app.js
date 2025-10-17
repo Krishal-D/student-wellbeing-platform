@@ -13,6 +13,7 @@ import { usersRouter } from './routes/users.js';
 import { historyRouter } from './routes/history.js';
 import { authRouter } from './routes/auth.js';
 import { initAuth } from './controllers/auth.js';
+import { profileRouter } from './routes/profile.js';
 
 import { requireAuth, addUserToViews } from './middleware/auth.js';
 import { socialRouter } from './routes/social.js';
@@ -62,6 +63,7 @@ app.use('/', alertDashboardRouter);
 app.use('/', usersRouter);
 app.use('/', historyRouter);
 app.use('/', socialRouter);
+app.use('/', profileRouter);
 
 // Not encouraged, but this is a simple example of how to register a route without a router.
 app.get('/test', (req, res) => {
