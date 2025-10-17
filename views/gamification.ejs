@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link rel="stylesheet" href="/stylesheets/history.css" />
+    <link rel="stylesheet" href="/stylesheets/gamification.css" />
   </head>
   <body>
 
@@ -13,38 +13,42 @@
     <%- include("partials/header") %>
 
     <main class="container">
-      <h2>Mood History</h2>
+      <h2>My Wellbeing Progress</h2>
+
+      <section class = "summary-box">
+        <h3>Total Points: <%= totalPoints %> pts </h3>
+        <h4>Current Badge: <%= badge_name %> <%= icon %> </h4>
+      </section>
 
         <div class="table-wrapper">
-        <table>
 
+        <table>
             <thead>
                 <tr>
-                    <th>Mood ID</th>
-                    <th>Mood Score</th>
-                    <th>Notes</th>
-                    <th>Created at</th>
+                    <th>ID</th>
+                    <th>Points</th>
+                    <th>Date Earned</th>
                 </tr>
             </thead>
 
             <tbody>
-              <% if (moods.length === 0) {%>
+              <% if (progress.length === 0) {%>
                 <tr>
-                  <td colspan="4" class="empty-state">
-                    📝No mood data available. <a href="/mood">Start your first check-in whenever you are ready.</a>
+                  <td colspan="5" class="empty-state">
+                    🏆No gamification data available. <a href="/mood">📝Start your first mood check-in to earn points.</a> 
                   </td>
                 </tr>
-                
+
               <%} else { %>
-                <%moods.forEach(mood => {%>
+                <%progress.forEach(item => {%>
                 <tr>
-                    <td>M<%= mood.id %></td>
-                    <td><%= mood.mood_score %></td>
-                    <td><%= mood.notes %></td>
-                    <td><%= (mood.created_at).toLocaleString() %></td>
+                    <td>M<%= item.id %></td>
+                    <td><%= item.points %></td>
+                    <td><%= (item.date_earned).toLocaleString() %></td>
                 </tr>
                 <% }) %>
               <% } %>
+              
             </tbody>
 
         </table>

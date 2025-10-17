@@ -17,6 +17,7 @@ import { profileRouter } from './routes/profile.js';
 
 import { requireAuth, addUserToViews } from './middleware/auth.js';
 import { socialRouter } from './routes/social.js';
+import { gamificationRouter } from './routes/gamification.js';
 
 // Setup debug module to spit out all messages
 // Do `npn start` to see the debug messages
@@ -64,6 +65,7 @@ app.use('/', usersRouter);
 app.use('/', historyRouter);
 app.use('/', socialRouter);
 app.use('/', profileRouter);
+app.use('/', gamificationRouter);
 
 // Not encouraged, but this is a simple example of how to register a route without a router.
 app.get('/test', (req, res) => {
