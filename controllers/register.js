@@ -49,12 +49,15 @@ export async function registerUser(req, res) {
       { expiresIn: '24h' }
     );
 
+    // mark new registration for welcome messaging
+    res.cookie('welcome', 'new', { httpOnly: false, sameSite: 'lax' });
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax'
     });
-
+    // mark as a brand-new signup for home welcome message
+    res.cookie('welcome', 'new', { maxAge: 5 * 60 * 1000, sameSite: 'lax' });
     res.redirect('/');
   } catch (err) {
     console.error('Database error:', err);
