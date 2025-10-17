@@ -15,7 +15,10 @@
       <section class="auth-section">
         <div class="home-content">
           <% if (typeof user !== 'undefined' && user) { %>
-            <h1 class="home-title">Welcome back, <%= user.userType === 'admin' ? 'Admin' : user.userName %>! 🌟</h1>
+            <h1 class="home-title">
+              <%= (welcomeType === 'new') ? 'Welcome' : 'Welcome back' %>,
+              <%= user.userType === 'admin' ? 'Admin' : user.userName %>! 🌟
+            </h1>
             <p class="home-subtitle"><%= user.userType === 'admin' ? 'Manage your platform effectively today!' : 'Ready to take care of your wellbeing today?' %></p>
             <% if (user.userType === 'admin') { %>
               <div class="home-message">

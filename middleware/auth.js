@@ -62,8 +62,27 @@ export function requireAdmin(req, res, next) {
   next();
 }
 
+export function requireNonAdmin(req, res, next) {
+  const user = getUserFromCookies(req, res);
+  res.set('Cache-Control', 'no-store');
+  if (!user) {
+    res.clearCookie('user');
+    return res.redirect('/login');
+  }
+  if (user.userType === 'admin') {
+    return res.status(403).send('Admins cannot access this page.');
+  }
+  req.user = user;
+  next();
+}
+
+// Require a logged-in non-admin user (block admins on user-only pages)
+
 export function addUserToViews(req, res, next) {
   const user = getUserFromCookies(req, res);
   res.locals.user = user;
+  // wire welcome type for home greeting
+  const welcome = req.cookies && req.cookies.welcome;
+  res.locals.welcomeType = welcome || null;
   next();
 }

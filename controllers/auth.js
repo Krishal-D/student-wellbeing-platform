@@ -46,11 +46,15 @@ export async function loginPost(req, res) {
       { expiresIn: '24h' }
     );
 
+    // mark returning login
+    res.cookie('welcome', 'back', { httpOnly: false, sameSite: 'lax' });
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax'
     });
+    // mark as returning user for home welcome message
+    res.cookie('welcome', 'back', { maxAge: 5 * 60 * 1000, sameSite: 'lax' });
     
   // redirect to home
     return res.redirect('/');

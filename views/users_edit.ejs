@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit User</title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="/stylesheets/users.css" />
+</head>
+<body>
+  <%- include("partials/header") %>
+  <main class="container">
+    <h2>Edit User</h2>
+    <form action="/users/<%= user.id %>/edit" method="post" class="form">
+      <div class="form-row">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" value="<%= user.name %>" required />
+      </div>
+      <div class="form-row">
+        <label for="password">New Password (optional)</label>
+        <input id="password" name="password" type="password" />
+      </div>
+      <div class="form-row">
+        <label for="confirmPassword">Confirm New Password</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" />
+      </div>
+      <div class="actions">
+        <button type="submit" class="btn">Save</button>
+        <a href="/users" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </main>
+  <%- include("partials/footer") %>
+</body>
+</html>
