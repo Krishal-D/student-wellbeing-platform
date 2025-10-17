@@ -266,3 +266,17 @@ header h1 {
 .home-link:hover {
   border-bottom: 2px solid #667eea;
 }
+
+/* Simple centered footer */
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  margin-top: 3rem;
+}
+
+footer p {
+  margin: 0;
+  color: #667eea;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
