@@ -41,8 +41,8 @@ export async function registerUser(req, res) {
   console.log('New user registered:', { name, email });
 
     // auto-login with JWT
-    const adminEmail = process.env.ADMIN_EMAIL;
-    const userRole = (adminEmail && newUser.email === adminEmail) ? 'admin' : 'user';
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const userRole = (adminEmail && newUser.email === adminEmail) ? 'admin' : 'user';
     const token = jwt.sign(
       { userId: newUser.id, userName: newUser.name, email: newUser.email, userType: userRole },
       JWT_SECRET,

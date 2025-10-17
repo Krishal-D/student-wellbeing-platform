@@ -62,9 +62,7 @@ export async function loginPost(req, res) {
 }
 
 export function logout(req, res) {
-  // Clear legacy cookie (tests expect exactly one clearCookie call for 'user')
   res.clearCookie('user');
-  // Expire JWT token cookie (equivalent to clearing, without extra clearCookie call)
   res.cookie('token', '', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -72,4 +70,25 @@ export function logout(req, res) {
     maxAge: 0,
   });
   res.redirect('/login');
+}
+
+// Initialize auth-related bootstrap (e.g., ensure admin user from env)
+export async function initAuth() {
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminEmail || !adminPassword) return;
+
+  try {
+    const hash = await bcrypt.hash(adminPassword, 10);
+    const existing = await pool.query('SELECT id, role FROM users WHERE email = $1', [adminEmail]);
+    if (existing.rows.length === 0) {
+      await pool.query('INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4)', ['Admin', adminEmail, hash, 'admin']);
+      console.log('Admin account created:', adminEmail);
+    } else {
+      // ensure role is admin and password is updated to the latest
+      await pool.query('UPDATE users SET role = $1, password = $2 WHERE email = $3', ['admin', hash, adminEmail]);
+    }
+  } catch (e) {
+    console.error('initAuth error:', e);
+  }
 }
