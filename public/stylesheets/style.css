@@ -1,5 +1,8 @@
 body {
-  padding: 50px;
+  padding-top: 140px; /* Space for fixed header */
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -7,37 +10,129 @@ a {
   color: #00B7FF;
 }
 
-h1 {
-  background:  linear-gradient(135deg, #667eea 0%, #764ba2 100%);;
+/* Fixed header styling */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  text-align: center;
-  margin: 10px 0;
-  font-weight: normal;
+  padding: 1rem;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Navigation links */
+header h1 {
+  background: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+/* Navigation styling */
+.navbar {
+  margin-top: 0.5rem;
+}
+
+/* Navigation links - always one line */
 .nav-links {
   display: flex;
-  gap: 100px;
+  gap: 15px;
   list-style: none;
-  margin: 10px;
-  padding: 10px;
+  margin: 0;
+  padding: 0;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  min-height: 40px;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.nav-links li {
+  flex-shrink: 1;
+  white-space: nowrap;
 }
 
 .nav-links a {
   text-decoration: none;
+  color: white;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  font-size: 0.8rem;
+  display: block;
 }
 
+.nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
 
 
 .nav-login {
   margin-left: auto;
+  flex-shrink: 0;
 }
 
 .nav-logout {
   margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* Ensure header stays fixed and one line on ALL screen sizes */
+@media (max-width: 768px) {
+  body {
+    padding-top: 120px; /* Adjust for smaller header on mobile */
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  header {
+    padding: 0.8rem 0.5rem;
+  }
+  
+  header h1 {
+    font-size: 1.4rem;
+    padding: 0.3rem 0;
+  }
+  
+  .nav-links {
+    gap: 8px;
+    min-height: 35px;
+  }
+  
+  .nav-links a {
+    padding: 0.3rem 0.4rem;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 110px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  header {
+    padding: 0.6rem 0.3rem;
+  }
+  
+  header h1 {
+    font-size: 1.2rem;
+  }
+  
+  .nav-links {
+    gap: 4px;
+  }
+  
+  .nav-links a {
+    padding: 0.2rem 0.3rem;
+    font-size: 0.65rem;
+  }
 }
 
 .home-main {
