@@ -258,7 +258,38 @@ describe('Core Integration Tests', () => {
     pool.query = originalQuery;
   });
 
-  
+
+  test('Gamification badge logic should handle different point thresholds', async () => {
+      const req = { user: { userId: 2 } };
+      const res = makeRes();
+
+      const originalQuery = pool.query;
+      pool.query = async (sql, params) => {
+        if (sql.includes('SELECT COALESCE(SUM(points), 0) AS sum_points')) {
+          // Return points for Gold badge (350 points)
+          return { rows: [{ sum_points: 350 }] };
+        }
+        if (sql.includes('SELECT id, points, badge_name, icon, date_earned')) {
+          return { 
+            rows: [
+              { id: 1, points: 350, badge_name: 'Gold Achiever', icon: '🥇', date_earned: new Date('2024-01-01') }
+            ]
+          };
+        }
+        return { rows: [] };
+      };
+
+      await gamificationShow(req, res);
+
+      assert.strictEqual(res.render.mock.callCount(), 1);
+      const data = res.render.mock.calls[0].arguments[1];
+      assert.strictEqual(data.totalPoints, 350);
+      assert.strictEqual(data.badge_name, 'Gold Achiever');
+      assert.strictEqual(data.icon, '🥇');
+      
+      pool.query = originalQuery;
+    });
+
 
   // =============================================================================
   // ERROR HANDLING TEST
