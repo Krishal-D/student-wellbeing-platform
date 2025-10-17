@@ -54,6 +54,40 @@ table th, table td {
   text-align: left;
 }
 
+/* Buttons styling aligned with home theme */
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.btn-sm { padding: 6px 12px; font-size: 0.9rem; }
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: #fff;
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.alert { padding: 10px 14px; border-radius: 8px; margin-bottom: 12px; }
+.alert.success { background: #e6f0ff; color: #1e40af; }
+.alert.error { background: #ffe6e9; color: #9b1c31; }
+
 @media (max-width: 600px) {
   table thead {
     display: none;
@@ -82,4 +116,36 @@ table th, table td {
     text-align: left;
     font-weight: bold;
   }
+}
+
+/* Edit form layout */
+.form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.form-row label {
+  font-weight: 600;
+  color: #333;
+}
+
+.form-row input[type="text"],
+.form-row input[type="password"] {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
 }
