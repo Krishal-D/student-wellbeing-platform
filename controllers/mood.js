@@ -65,7 +65,7 @@ export async function submit(req, res, next){
     }   
 
     // change "1" later after the login is setup
-    alertCheck(req, res, 1); 
+    alertCheck(req, res, req.user.userId); 
 }
 
 

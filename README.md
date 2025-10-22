@@ -21,6 +21,9 @@ Test files are located in the `tests` folder.
 Running `node --test` runs them all.
 Run `node --test --experimental-test-coverage` for test coverage.
 
+
+## Alert generation fix
+The main branch at the time of the Friday deadline contained the line `alertCheck(req, res, 1);` with userID hardcoded to "1" because the code was written before User Authentication was added. This was changed to `alertCheck(req, res, req.user.userId);` after friday, before the presentation. 
 ---
 ---
 
