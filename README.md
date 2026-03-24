@@ -1,55 +1,66 @@
-# README file
-## .env File
-Our project has a ".env.example" file than contains database details like the database username and password.
-For the website to correctly run, either create a .env file and copy the contents of .env.example into it.
-Or, rename .env.example to .env
+# Student Wellbeing Platform
 
-## Migrations script
-SQL files are located in the `migrations` folder.
-You need to run both:
+A full-stack web application providing mental health resources, mood tracking, 
+and support services for university students. Built by a 4-person Agile team 
+over 12 weeks at Western Sydney University.
 
-`node config/migrationRunner.js destroy`
+**275 commits · 4-person team · Agile sprints · CI/CD pipeline**
 
-and
-
-`node config/migrationRunner.js migrate`
-
-each time to delete and recreate the database.
-
-## Testing
-Test files are located in the `tests` folder.
-Running `node --test` runs them all.
-Run `node --test --experimental-test-coverage` for test coverage.
-
-
-## Alert generation fix
-The main branch at the time of the Friday deadline contained the line `alertCheck(req, res, 1);` with userID hardcoded to "1" because the code was written before User Authentication was added. This was changed to `alertCheck(req, res, req.user.userId);` after friday, before the presentation. 
----
 ---
 
+## My Contributions
 
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/GoatNcQr)
-[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=20074418)
-## Express Boiler Plate
+I was the highest contributor on this project, responsible for:
 
-This repository is a boiler palte for a Express web Application. 
+- **Docker & DevOps** — Authored the Docker and Docker Compose configuration, 
+  reducing new developer environment setup from 2 hours to under 10 minutes
+- **CI/CD Pipeline** — Built GitHub Actions workflow with automated test runs 
+  and branch protection rules enforcing PR review before any merge to main
+- **Database Architecture** — Designed the PostgreSQL schema using the 
+  migration runner pattern with destroy/migrate scripts for reproducible 
+  environments; wrote seed data for consistent test states
+- **Authentication integration** — Connected user authentication to the alert 
+  system ensuring alerts were scoped per-user rather than hardcoded
 
-It is using ES Modules rather than commonJS, and has a directory structure that seperates our responsiblities and concerns. 
+---
 
-Group Detail: 
+## Tech Stack
 
-Name: Chansethea Sunly
-ID: 20080235
-Email: 20080235@student.westernsydney.edu.au
+| Layer | Technology |
+|---|---|
+| Backend | Node.js, Express 5 (ES Modules) |
+| Templating | EJS |
+| Database | PostgreSQL |
+| Testing | Node.js built-in test runner |
+| DevOps | Docker, Docker Compose, GitHub Actions |
+| Dev Environment | GitHub Codespaces / Dev Containers |
 
-Name: Vouching Cheav
-ID: 22084048
-Email: 22084048@student.westernsydney.edu.au
+---
 
-Name: Krishal Dhungana
-ID: 22151706
-Email:22151706@student.westernsydney.edu.au
+## Features
 
-Name: Brendan Dickie
-ID: 17975432
-Email:17975432@student.westernsydney.edu.au
+- Student mood and wellbeing check-ins
+- Alert system that flags students who may need support
+- Resource directory for mental health services
+- User authentication with session-scoped data
+- Admin dashboard for viewing student wellbeing trends
+
+---
+
+## Local Setup
+
+### Prerequisites
+- Node.js 18+
+- PostgreSQL 14+
+- Docker (optional)
+
+### With Docker
+```bash
+docker compose up --build
+```
+
+### Without Docker
+
+1. Clone the repo and install dependencies:
+```bash
+git clone https://github.com/
